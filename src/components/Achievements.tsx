@@ -92,12 +92,12 @@ const Achievements: React.FC = () => {
           <h3 className="text-2xl font-bold text-slate-900 mb-6 text-center">Career Impact Metrics</h3>
           <div className="grid md:grid-cols-3 lg:grid-cols-6 gap-6">
             {metrics.map((metric, index) => (
-              <div key={index} className="text-center">
-                <div className="text-3xl font-bold text-primary-600 mb-2">
-                  {metric.value}
+              <div key={index} className="text-center flex flex-col">
+                <div className="mb-2">
+                  <p className="text-3xl font-bold text-primary-600">{metric.value}</p>
+                  <p className="text-xs text-slate-500 -mt-1">{metric.suffix}</p>
                 </div>
-                <div className="text-sm text-slate-600 mb-1">{metric.label}</div>
-                <div className="text-xs text-slate-500">{metric.suffix}</div>
+                <p className="text-sm text-slate-600 mt-auto">{metric.label}</p>
               </div>
             ))}
           </div>
