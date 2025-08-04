@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import profilePhoto from '../assets/dj.jpg';
 import { TypeAnimation } from 'react-type-animation';
 import Highlights from './Highlights';
 import ParticlesBackground from './ParticlesBackground';
@@ -23,7 +24,7 @@ const EnhancedHero: React.FC = () => {
         <div className="max-w-4xl mx-auto">
           {/* Photo */}
           <motion.img
-            src="/dj.jpg"
+            src={profilePhoto}
             alt="DJ Cline"
             className="w-32 h-32 rounded-full mx-auto mb-6 border-4 border-cyber-blue/50 shadow-lg"
             initial={{ opacity: 0, scale: 0.5 }}
