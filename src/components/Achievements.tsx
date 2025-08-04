@@ -48,12 +48,11 @@ const Achievements: React.FC = () => {
   ];
 
   const metrics = [
-    { label: "Years of Experience", value: "20+", suffix: "years" },
-    { label: "Security Incidents", value: "0", suffix: "reportable" },
-    { label: "Efficiency Improvement", value: "85", suffix: "%" },
-    { label: "Service Improvement", value: "75", suffix: "%" },
-    { label: "Global Sites Managed", value: "4+", suffix: "countries" },
-    { label: "Team Members Mentored", value: "50+", suffix: "professionals" }
+    { value: '25+', suffix: 'years', label: 'IT Leadership Experience' },
+    { value: '15+', suffix: 'projects', label: 'Successful Projects' },
+    { value: '$1M+', suffix: 'savings', label: 'In Cost Savings' },
+    { value: '99.9%', suffix: 'uptime', label: 'System Availability' },
+    { value: '4', suffix: 'countries', label: 'Global Operations' }
   ];
 
   return (
