@@ -115,7 +115,7 @@ const Contact: React.FC = () => {
                     <info.icon className="w-6 h-6 text-primary-600" />
                   </div>
                   <div>
-                    <p className="font-semibold text-slate-900">{info.label}</p>
+                    <p className="font-semibold text-white">{info.label}</p>
                     {info.href ? (
                       <a 
                         href={info.href} 
