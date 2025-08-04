@@ -21,6 +21,16 @@ const EnhancedHero: React.FC = () => {
       {/* Main Content */}
       <div className="relative z-10 container-padding text-center">
         <div className="max-w-4xl mx-auto">
+          {/* Photo */}
+          <motion.img
+            src="/dj.jpg"
+            alt="DJ Cline"
+            className="w-32 h-32 rounded-full mx-auto mb-6 border-4 border-cyber-blue/50 shadow-lg"
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+          />
+
           {/* Animated Title */}
           <div className="mb-8">
             <h1 className="text-5xl md:text-7xl font-bold mb-4">
