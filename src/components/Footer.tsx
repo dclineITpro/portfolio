@@ -16,7 +16,7 @@ const Footer: React.FC = () => {
           <div>
             <h3 className="text-lg font-bold mb-4">DJ Cline</h3>
             <p className="text-slate-300 text-sm leading-relaxed mb-4">
-              IT Director & Technology Leader with 20+ years of experience driving 
+              IT Director & Technology Leader with 25+ years of experience driving 
               digital transformation, cybersecurity excellence, and team development 
               across diverse industries.
             </p>

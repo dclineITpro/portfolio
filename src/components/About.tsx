@@ -31,7 +31,7 @@ const About: React.FC = () => {
         <div className="max-w-4xl mx-auto text-center mb-12">
           <h2 className="text-4xl font-bold text-white mb-4 text-gradient">About Me</h2>
           <p className="text-xl text-slate-300">
-            Strategic IT leader with 20+ years of experience driving digital transformation
+            Strategic IT leader with 25+ years of experience driving digital transformation
           </p>
         </div>
 
