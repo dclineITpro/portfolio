@@ -100,7 +100,7 @@ const Contact: React.FC = () => {
           {/* Contact Information */}
           <div className="space-y-8">
             <div>
-              <h3 className="text-2xl font-bold text-slate-900 mb-6">Get In Touch</h3>
+              <h3 className="text-2xl font-bold mb-6 text-gradient animate-text-glow">Get In Touch</h3>
               <p className="text-slate-600 mb-6">
                 I'm always interested in discussing new opportunities, innovative projects, 
                 and ways to drive technology transformation. Whether you're looking for strategic 
@@ -132,7 +132,7 @@ const Contact: React.FC = () => {
             </div>
 
             <div>
-              <h4 className="font-semibold text-slate-900 mb-4">Connect Online</h4>
+              <h4 className="font-semibold mb-4 text-gradient animate-text-glow">Connect Online</h4>
               <div className="flex space-x-4">
                 {socialLinks.map((social) => (
                   <a
