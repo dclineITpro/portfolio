@@ -8,6 +8,7 @@ import Skills from './components/Skills';
 import Achievements from './components/Achievements';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import ScrollAnimationWrapper from './components/ScrollAnimationWrapper';
 
 function App() {
   return (
@@ -16,11 +17,21 @@ function App() {
       <div className="relative z-10">
         <Header />
         <EnhancedHero />
-        <About />
-        <Experience />
-        <Skills />
-        <Achievements />
-        <Contact />
+        <ScrollAnimationWrapper>
+          <About />
+        </ScrollAnimationWrapper>
+        <ScrollAnimationWrapper>
+          <Experience />
+        </ScrollAnimationWrapper>
+        <ScrollAnimationWrapper>
+          <Skills />
+        </ScrollAnimationWrapper>
+        <ScrollAnimationWrapper>
+          <Achievements />
+        </ScrollAnimationWrapper>
+        <ScrollAnimationWrapper>
+          <Contact />
+        </ScrollAnimationWrapper>
         <Footer />
       </div>
     </div>

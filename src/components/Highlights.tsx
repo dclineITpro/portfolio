@@ -1,23 +1,39 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ComponentType } from 'react';
+import {
+  Target, Users, DollarSign, GitMerge,
+  Award, Shield, Zap, BrainCircuit,
+  Lightbulb, Network, MessageSquare, Cpu
+} from 'lucide-react';
 
-const highlightsData = {
+// Define the type for a highlight item
+interface HighlightItem {
+  text: string;
+  icon: ComponentType<{ className?: string }>;
+}
+
+// Define the type for the data structure
+interface HighlightsData {
+  [key: string]: HighlightItem[];
+}
+
+const highlightsData: HighlightsData = {
   box1: [
-    "Strategic IT Leadership",
-    "Project & Team Management",
-    "Financial & Vendor Stewardship",
-    "Business & IT Alignment",
+    { text: "Strategic IT Leadership", icon: Target },
+    { text: "Project & Team Management", icon: Users },
+    { text: "Financial & Vendor Stewardship", icon: DollarSign },
+    { text: "Business & IT Alignment", icon: GitMerge },
   ],
   box2: [
-    "Operational Excellence",
-    "IT Infrastructure & Security",
-    "Reliability & Efficiency Focus",
-    "Deep Technical Understanding",
+    { text: "Operational Excellence", icon: Award },
+    { text: "IT Infrastructure & Security", icon: Shield },
+    { text: "Reliability & Efficiency Focus", icon: Zap },
+    { text: "Deep Technical Understanding", icon: BrainCircuit },
   ],
   box3: [
-    "Technology Innovation",
-    "Business Systems Integration",
-    "Stakeholder Engagement",
-    "Driving Digital Transformation",
+    { text: "Technology Innovation", icon: Lightbulb },
+    { text: "Business Systems Integration", icon: Network },
+    { text: "Stakeholder Engagement", icon: MessageSquare },
+    { text: "Driving Digital Transformation", icon: Cpu },
   ],
 };
 
@@ -26,9 +42,9 @@ const pauseTiming = 1500; // pause before cycling
 
 const Highlights = () => {
   const [boxes, setBoxes] = useState([
-    { id: 'box1', text: highlightsData.box1[0], visible: false, textIndex: 0 },
-    { id: 'box2', text: highlightsData.box2[0], visible: false, textIndex: 0 },
-    { id: 'box3', text: highlightsData.box3[0], visible: false, textIndex: 0 },
+    { id: 'box1', item: highlightsData.box1[0], visible: false, textIndex: 0 },
+    { id: 'box2', item: highlightsData.box2[0], visible: false, textIndex: 0 },
+    { id: 'box3', item: highlightsData.box3[0], visible: false, textIndex: 0 },
   ]);
 
   useEffect(() => {
@@ -58,7 +74,7 @@ const Highlights = () => {
                 return {
                   ...box,
                   visible: true,
-                  text: highlightsData[box.id][newTextIndex],
+                  item: highlightsData[box.id][newTextIndex],
                   textIndex: newTextIndex,
                 };
               }
@@ -76,18 +92,22 @@ const Highlights = () => {
 
   return (
     <>
-      {boxes.map(box => (
-        <div
-          key={box.id}
-          className="cyber-card h-32 w-64 p-6 flex items-center justify-center text-center"
-        >
+      {boxes.map(box => {
+        const Icon = box.item.icon;
+        return (
           <div
-            className={`transition-opacity duration-700 ${box.visible ? 'opacity-100' : 'opacity-0'}`}
+            key={box.id}
+            className="cyber-card h-32 w-64 p-6 flex items-center justify-center text-center"
           >
-            <p className="text-slate-300">{box.text}</p>
+            <div
+              className={`flex flex-col items-center justify-center gap-2 transition-opacity duration-700 ${box.visible ? 'opacity-100' : 'opacity-0'}`}
+            >
+              <Icon className="w-8 h-8 text-cyber-blue" />
+              <p className="text-slate-300">{box.item.text}</p>
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </>
   );
 };
