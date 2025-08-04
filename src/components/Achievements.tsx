@@ -89,7 +89,7 @@ const Achievements: React.FC = () => {
 
         <div className="bg-white p-8 rounded-lg card-shadow">
           <h3 className="text-2xl font-bold text-slate-900 mb-6 text-center">Career Impact Metrics</h3>
-          <div className="grid md:grid-cols-3 lg:grid-cols-6 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
             {metrics.map((metric, index) => (
               <div key={index} className="text-center flex flex-col">
                 <div className="mb-2">
