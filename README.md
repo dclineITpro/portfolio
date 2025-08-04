@@ -10,3 +10,5 @@ To run the project locally, clone the repository and run the following commands:
 npm install
 npm run dev
 ```
+
+<!-- Trigger deployment -->
