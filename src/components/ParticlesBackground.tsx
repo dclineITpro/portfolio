@@ -30,25 +30,50 @@ const ParticlesBackground = () => {
         events: {
           onHover: {
             enable: true,
-            mode: "repulse",
+            mode: ["bubble", "grab"],
+            parallax: {
+              enable: true,
+              force: 60,
+              smooth: 10,
+            },
+          },
+          onClick: {
+            enable: true,
+            mode: "push",
           },
         },
         modes: {
-          repulse: {
-            distance: 100,
-            duration: 0.4,
+          bubble: {
+            distance: 150,
+            duration: 2,
+            opacity: 0.8,
+            size: 6,
+            speed: 3,
+          },
+          grab: {
+            distance: 200,
+            links: {
+              opacity: 0.8,
+            },
+          },
+          push: {
+            quantity: 4,
           },
         },
       },
       particles: {
         color: {
-          value: "#ffffff",
+          value: ["#ffffff", "#3b82f6", "#8b5cf6", "#00ffff"],
+          animation: {
+            enable: true,
+            speed: 5,
+          },
         },
         links: {
           color: "#ffffff",
           distance: 150,
           enable: true,
-          opacity: 0.2,
+          opacity: 0.1,
           width: 1,
         },
         move: {
@@ -58,7 +83,7 @@ const ParticlesBackground = () => {
             default: "bounce",
           },
           random: false,
-          speed: 1,
+          speed: 0.5,
           straight: false,
         },
         number: {
@@ -69,13 +94,25 @@ const ParticlesBackground = () => {
           value: 80,
         },
         opacity: {
-          value: 0.2,
+          value: 0.3,
+          animation: {
+            enable: true,
+            speed: 0.5,
+            minimumValue: 0.1,
+            sync: false,
+          },
         },
         shape: {
           type: "circle",
         },
         size: {
-          value: { min: 1, max: 3 },
+          value: { min: 1, max: 4 },
+          animation: {
+            enable: true,
+            speed: 2,
+            minimumValue: 0.5,
+            sync: false,
+          },
         },
       },
       detectRetina: true,
