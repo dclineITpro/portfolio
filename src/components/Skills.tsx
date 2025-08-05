@@ -155,7 +155,7 @@ const Skills: React.FC = () => {
                   <category.icon className={`w-6 h-6 ${category.textColor}`} />
                 </div>
                 <div>
-                  <h3 className={`text-lg font-semibold text-${category.color}-700`}>{category.title}</h3>
+                  <h3 className={`text-lg font-bold text-${category.color}-600`}>{category.title}</h3>
                 </div>
               </div>
               <ul className="space-y-2">
@@ -175,7 +175,7 @@ const Skills: React.FC = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {technicalSkills.map((category) => (
               <div key={category.category}>
-                <h4 className={`font-semibold text-${category.color}-700 mb-3`}>{category.category}</h4>
+                <h4 className={`font-bold text-${category.color}-600 mb-3`}>{category.category}</h4>
                 <div className="flex flex-wrap gap-2">
                   {category.items.map((item, idx) => (
                     <span key={idx} className={`px-3 py-1 bg-${category.color}-100 text-${category.color}-700 rounded-full text-sm border border-${category.color}-200 hover:bg-${category.color}-200 transition-colors`}>
