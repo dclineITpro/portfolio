@@ -3,7 +3,8 @@ import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
 import Highlights from './Highlights';
 import ParticlesBackground from './ParticlesBackground';
-import { ChevronDown, Mail, Linkedin, Cpu, Network, Shield, Zap } from 'lucide-react';
+import PDFResume from './PDFResume';
+import { ChevronDown, Mail, Linkedin, Cpu, Network, Shield, Zap, Download } from 'lucide-react';
 
 const EnhancedHero: React.FC = () => {
 
@@ -68,13 +69,26 @@ const EnhancedHero: React.FC = () => {
           </div>
 
           {/* Animated CTA Buttons */}
-          <div className="mt-12 mb-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="mt-12 mb-8 flex flex-col sm:flex-row items-center justify-center gap-4 flex-wrap">
             <button
               onClick={() => scrollToSection('contact')}
               className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-cyber-blue to-cyber-purple text-white font-semibold rounded-lg animate-pulse-glow hover:scale-105 transition-transform duration-300"
             >
               <Mail className="w-5 h-5 mr-2" />
               Get In Touch
+            </button>
+            <button
+              onClick={() => {
+                // Simple PDF generation for now
+                const link = document.createElement('a');
+                link.href = '/portfolio/dj-cline-resume.pdf';
+                link.download = 'DJ-Cline-Resume.pdf';
+                link.click();
+              }}
+              className="inline-flex items-center px-8 py-4 bg-orange-500 text-white font-semibold rounded-lg hover:bg-orange-600 transition-colors duration-300"
+            >
+              <Download className="w-5 h-5 mr-2" />
+              Download Resume
             </button>
             <a
               href="https://www.linkedin.com/in/dj-cline-22219834/"
