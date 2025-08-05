@@ -178,7 +178,7 @@ const Skills: React.FC = () => {
                 <h4 className={`font-bold text-${category.color}-600 mb-3`}>{category.category}</h4>
                 <div className="flex flex-wrap gap-2">
                   {category.items.map((item, idx) => (
-                    <span key={idx} className={`px-3 py-1 bg-${category.color}-100 text-${category.color}-700 rounded-full text-sm border border-${category.color}-200 hover:bg-${category.color}-200 transition-colors`}>
+                    <span key={idx} className={`px-3 py-1 bg-${category.color}-100 text-slate-800 rounded-full text-sm border border-${category.color}-200 hover:bg-${category.color}-200 transition-colors`}>
                       {item}
                     </span>
                   ))}
