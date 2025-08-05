@@ -101,7 +101,7 @@ const Contact: React.FC = () => {
           <div className="space-y-8">
             <div>
               <h3 className="text-2xl font-bold mb-6 text-gradient animate-text-glow">Get In Touch</h3>
-              <p className="text-slate-600 mb-6">
+              <p className="text-white mb-6">
                 I'm always interested in discussing new opportunities, innovative projects, 
                 and ways to drive technology transformation. Whether you're looking for strategic 
                 IT leadership, cybersecurity expertise, or AI implementation guidance, let's connect.
