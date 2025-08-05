@@ -133,7 +133,7 @@ export const generateResumePDF = () => {
             <div class="experience-duration">2019 - Present | United States</div>
             <ul>
               <li>Led enterprise-wide digital transformation initiatives resulting in 25% operational efficiency gains</li>
-              <li>Implemented comprehensive cybersecurity framework achieving 99.9% system availability</li>
+              <li>Implemented comprehensive cybersecurity framework achieving 99.99% system availability</li>
               <li>Managed $2M+ technology budgets and reduced operational costs by 30%</li>
               <li>Built and led high-performing teams of 15+ IT professionals across multiple locations</li>
             </ul>
@@ -145,7 +145,7 @@ export const generateResumePDF = () => {
             <div class="experience-duration">2015 - 2019 | United States</div>
             <ul>
               <li>Architected cloud migration strategy reducing infrastructure costs by 40%</li>
-              <li>Established disaster recovery protocols ensuring 99.9% uptime</li>
+              <li>Established disaster recovery protocols ensuring 99.99% uptime</li>
               <li>Mentored 10+ junior professionals, with 80% receiving promotions</li>
               <li>Implemented ITIL-based service management improving response times by 45%</li>
             </ul>
@@ -158,7 +158,7 @@ export const generateResumePDF = () => {
             <li>25+ years IT Leadership Experience</li>
             <li>15+ Successful Projects Delivered</li>
             <li>$1M+ in Cost Savings Achieved</li>
-            <li>99.9% System Availability Maintained</li>
+            <li>99.99% System Availability Maintained</li>
             <li>Operations Across 4 Countries</li>
           </ul>
         </div>

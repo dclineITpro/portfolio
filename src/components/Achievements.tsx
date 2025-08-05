@@ -51,7 +51,7 @@ const Achievements: React.FC = () => {
     { value: '25+', suffix: 'years', label: 'IT Leadership Experience' },
     { value: '200%', suffix: 'faster', label: 'Technology Adoption Rate' },
     { value: '$1M+', suffix: 'savings', label: 'In Cost Savings' },
-    { value: '99.9%', suffix: 'uptime', label: 'System Availability' },
+    { value: '99.99%', suffix: 'uptime', label: 'System Availability' },
     { value: '5', suffix: 'countries', label: 'Global Operations' }
   ];
 

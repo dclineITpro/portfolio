@@ -120,7 +120,7 @@ const EnhancedHero: React.FC = () => {
 
                       <div class="section">
                         <div class="section-title">PROFESSIONAL SUMMARY</div>
-                        <p>Strategic IT leader with 25+ years of progressive experience driving digital transformation, cybersecurity excellence, and operational efficiency across manufacturing, government, and enterprise environments. Expert in ERP implementations, cloud migrations, and building high-performing global teams. Proven track record of implementing enterprise-wide technology solutions, reducing operational costs, and achieving 99.9% system availability.</p>
+                        <p>Strategic IT leader with 25+ years of progressive experience driving digital transformation, cybersecurity excellence, and operational efficiency across manufacturing, government, and enterprise environments. Expert in ERP implementations, cloud migrations, and building high-performing global teams. Proven track record of implementing enterprise-wide technology solutions, reducing operational costs, and achieving 99.99% system availability.</p>
                       </div>
 
                       <div class="section">
@@ -191,7 +191,7 @@ const EnhancedHero: React.FC = () => {
                         <ul>
                           <li>25+ years IT Leadership Experience</li>
                           <li>85% Operational Efficiency Gain via SAP ERP Implementation</li>
-                          <li>99.9% System Availability Maintained</li>
+                          <li>99.99% System Availability Maintained</li>
                           <li>Operations Across US, Mexico, and Asia</li>
                           <li>FBI Security Audit: Zero Deficiencies</li>
                           <li>Zero reportable security incidents</li>

@@ -93,7 +93,7 @@ const PDFResume: React.FC = () => {
         location: 'United States',
         achievements: [
           'Led enterprise-wide digital transformation initiatives resulting in 25% operational efficiency gains',
-          'Implemented comprehensive cybersecurity framework achieving 99.9% system availability',
+          'Implemented comprehensive cybersecurity framework achieving 99.99% system availability',
           'Managed $2M+ technology budgets and reduced operational costs by 30%',
           'Built and led high-performing teams of 15+ IT professionals across multiple locations'
         ]
@@ -105,7 +105,7 @@ const PDFResume: React.FC = () => {
         location: 'United States',
         achievements: [
           'Architected cloud migration strategy reducing infrastructure costs by 40%',
-          'Established disaster recovery protocols ensuring 99.9% uptime',
+          'Established disaster recovery protocols ensuring 99.99% uptime',
           'Mentored 10+ junior professionals, with 80% receiving promotions',
           'Implemented ITIL-based service management improving response times by 45%'
         ]
@@ -186,7 +186,7 @@ const PDFResume: React.FC = () => {
       '25+ years IT Leadership Experience',
       '15+ Successful Projects Delivered',
       '$1M+ in Cost Savings Achieved',
-      '99.9% System Availability Maintained',
+      '99.99% System Availability Maintained',
       'Operations Across 4 Countries',
       '50+ Professionals Mentored & Developed'
     ];
