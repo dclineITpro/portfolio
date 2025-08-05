@@ -105,9 +105,7 @@ const Footer: React.FC = () => {
             <div className="text-slate-400 text-sm">
               © {currentYear} DJ Cline. All rights reserved.
             </div>
-            <div className="text-slate-400 text-sm mt-4 md:mt-0">
-              Built with <Heart size={14} className="inline text-red-500" /> for professional excellence
-            </div>
+
           </div>
         </div>
       </div>
