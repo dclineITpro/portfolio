@@ -19,6 +19,10 @@ const Skills: React.FC = () => {
     {
       title: "IT Leadership & Strategy",
       icon: Users,
+      color: "indigo",
+      bgColor: "bg-indigo-100",
+      textColor: "text-indigo-600",
+      borderColor: "border-indigo-500",
       skills: [
         "Strategic IT Planning",
         "Executive Leadership",
@@ -30,6 +34,10 @@ const Skills: React.FC = () => {
     {
       title: "Enterprise Architecture & ERP",
       icon: Database,
+      color: "purple",
+      bgColor: "bg-purple-100",
+      textColor: "text-purple-600",
+      borderColor: "border-purple-500",
       skills: [
         "SAP ERP Implementation",
         "AS/400 to SAP Migration",
@@ -41,6 +49,10 @@ const Skills: React.FC = () => {
     {
       title: "Infrastructure Management",
       icon: Cloud,
+      color: "blue",
+      bgColor: "bg-blue-100",
+      textColor: "text-blue-600",
+      borderColor: "border-blue-500",
       skills: [
         "Cloud Infrastructure (AWS/Azure)",
         "Virtualization Technologies",
@@ -52,6 +64,10 @@ const Skills: React.FC = () => {
     {
       title: "AI & Emerging Technologies",
       icon: Cpu,
+      color: "emerald",
+      bgColor: "bg-emerald-100",
+      textColor: "text-emerald-600",
+      borderColor: "border-emerald-500",
       skills: [
         "AI/ML Implementation",
         "Locally Hosted AI Solutions",
@@ -63,6 +79,10 @@ const Skills: React.FC = () => {
     {
       title: "Cybersecurity & Risk Management",
       icon: Shield,
+      color: "red",
+      bgColor: "bg-red-100",
+      textColor: "text-red-600",
+      borderColor: "border-red-500",
       skills: [
         "Cybersecurity Program Development",
         "Risk Assessment & Mitigation",
@@ -74,6 +94,10 @@ const Skills: React.FC = () => {
     {
       title: "Business Technology",
       icon: TrendingUp,
+      color: "amber",
+      bgColor: "bg-amber-100",
+      textColor: "text-amber-600",
+      borderColor: "border-amber-500",
       skills: [
         "Microsoft 365 Administration",
         "Business Process Automation",
@@ -87,18 +111,22 @@ const Skills: React.FC = () => {
   const technicalSkills = [
     {
       category: "Enterprise Systems",
+      color: "purple",
       items: ["SAP ERP", "Microsoft 365", "AS/400", "Oracle", "Salesforce"]
     },
     {
       category: "Security & Compliance",
+      color: "red",
       items: ["XDR", "Penetration Testing", "Vulnerability Management", "FBI Security Audits", "Zero Trust"]
     },
     {
       category: "Infrastructure",
+      color: "blue",
       items: ["Cisco", "Aruba", "SDWAN/SASE", "Cloud Migration", "Virtualization"]
     },
     {
       category: "Methodologies",
+      color: "indigo",
       items: ["ITIL/ITSM", "Agile/Scrum", "Change Management", "Project Management", "Vendor Management"]
     }
   ];
@@ -123,17 +151,17 @@ const Skills: React.FC = () => {
               style={{ animationDelay: `${index * 100}ms` }}
             >
               <div className="flex items-center mb-4">
-                <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center mr-4">
-                  <category.icon className="w-6 h-6 text-primary-600" />
+                <div className={`w-12 h-12 ${category.bgColor} rounded-lg flex items-center justify-center mr-4 border-2 ${category.borderColor}`}>
+                  <category.icon className={`w-6 h-6 ${category.textColor}`} />
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-slate-900">{category.title}</h3>
+                  <h3 className={`text-lg font-semibold text-${category.color}-700`}>{category.title}</h3>
                 </div>
               </div>
               <ul className="space-y-2">
                 {category.skills.map((skill, idx) => (
-                  <li key={idx} className="text-sm text-slate-600 flex items-center">
-                    <span className="w-1.5 h-1.5 bg-primary-600 rounded-full mr-2 flex-shrink-0"></span>
+                  <li key={idx} className="text-sm text-slate-600 flex items-center hover:text-slate-800 transition-colors">
+                    <span className={`w-1.5 h-1.5 bg-${category.color}-500 rounded-full mr-2 flex-shrink-0`}></span>
                     {skill}
                   </li>
                 ))}
@@ -147,13 +175,10 @@ const Skills: React.FC = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {technicalSkills.map((category) => (
               <div key={category.category}>
-                <h4 className="font-semibold text-slate-900 mb-3">{category.category}</h4>
+                <h4 className={`font-semibold text-${category.color}-700 mb-3`}>{category.category}</h4>
                 <div className="flex flex-wrap gap-2">
-                  {category.items.map((item) => (
-                    <span 
-                      key={item}
-                      className="px-3 py-1 bg-slate-100 text-slate-700 rounded-full text-xs font-medium"
-                    >
+                  {category.items.map((item, idx) => (
+                    <span key={idx} className={`px-3 py-1 bg-${category.color}-100 text-${category.color}-700 rounded-full text-sm border border-${category.color}-200 hover:bg-${category.color}-200 transition-colors`}>
                       {item}
                     </span>
                   ))}
