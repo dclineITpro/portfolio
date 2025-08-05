@@ -124,7 +124,7 @@ const Contact: React.FC = () => {
                         {info.value}
                       </a>
                     ) : (
-                      <p className="text-slate-600">{info.value}</p>
+                      <p className="text-white">{info.value}</p>
                     )}
                   </div>
                 </div>
