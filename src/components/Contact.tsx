@@ -249,20 +249,24 @@ const Contact: React.FC = () => {
                         <head>
                           <title>DJ Cline - Resume</title>
                           <style>
-                            body { font-family: Arial, sans-serif; margin: 40px; color: #333; line-height: 1.6; }
-                            .header { text-align: center; border-bottom: 2px solid #2563eb; padding-bottom: 20px; margin-bottom: 30px; }
-                            .name { font-size: 28px; font-weight: bold; color: #1e40af; margin-bottom: 5px; }
-                            .title { font-size: 18px; color: #64748b; margin-bottom: 10px; }
+                            body { font-family: 'Segoe UI', Arial, sans-serif; margin: 40px; color: #333; line-height: 1.6; }
+                            .header { text-align: center; border-bottom: 3px solid #1e40af; padding-bottom: 20px; margin-bottom: 30px; }
+                            .name { font-size: 32px; font-weight: bold; color: #1e40af; margin-bottom: 5px; }
+                            .title { font-size: 20px; color: #475569; margin-bottom: 10px; font-weight: 500; }
                             .contact { font-size: 14px; color: #64748b; }
-                            .section { margin-bottom: 25px; }
-                            .section-title { font-size: 18px; font-weight: bold; color: #1e40af; border-bottom: 1px solid #e2e8f0; padding-bottom: 5px; margin-bottom: 15px; }
-                            .experience-item { margin-bottom: 20px; }
-                            .experience-title { font-weight: bold; font-size: 16px; }
-                            .experience-company { color: #475569; font-style: italic; }
-                            .experience-duration { color: #64748b; font-size: 14px; }
-                            ul { margin: 0; padding-left: 20px; }
-                            li { margin-bottom: 5px; }
-                            .skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+                            .section { margin-bottom: 30px; }
+                            .section-title { font-size: 20px; font-weight: bold; color: #1e40af; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 15px; }
+                            .experience-item { margin-bottom: 25px; page-break-inside: avoid; }
+                            .experience-title { font-weight: bold; font-size: 18px; color: #1e40af; }
+                            .experience-company { color: #475569; font-weight: 600; margin: 4px 0; }
+                            .experience-location { color: #64748b; font-size: 14px; }
+                            .experience-duration { color: #64748b; font-size: 14px; font-style: italic; }
+                            ul { margin: 8px 0 0 0; padding-left: 20px; }
+                            li { margin-bottom: 4px; font-size: 14px; }
+                            .skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin: 15px 0; }
+                            .skills-category { margin-bottom: 15px; }
+                            .skills-title { font-weight: bold; color: #1e40af; margin-bottom: 5px; }
+                            .achievement { margin-bottom: 8px; padding-left: 15px; }
                             .footer { margin-top: 40px; text-align: center; font-size: 12px; color: #94a3b8; border-top: 1px solid #e2e8f0; padding-top: 20px; }
                           </style>
                         </head>
@@ -278,28 +282,48 @@ const Contact: React.FC = () => {
 
                           <div class="section">
                             <div class="section-title">PROFESSIONAL SUMMARY</div>
-                            <p>Strategic IT leader with 25+ years of experience driving digital transformation, cybersecurity excellence, and team development across diverse industries. Proven track record in implementing enterprise-wide technology solutions, reducing operational costs, and building high-performing teams.</p>
+                            <p>Strategic IT leader with 25+ years of progressive experience driving digital transformation, cybersecurity excellence, and operational efficiency across manufacturing, government, and enterprise environments. Expert in ERP implementations, cloud migrations, and building high-performing global teams. Proven track record of implementing enterprise-wide technology solutions, reducing operational costs, and achieving 99.9% system availability.</p>
                           </div>
 
                           <div class="section">
                             <div class="section-title">CORE COMPETENCIES</div>
                             <div class="skills-grid">
-                              <ul>
-                                <li>Strategic IT Leadership</li>
-                                <li>Cybersecurity Frameworks</li>
-                                <li>Cloud Architecture</li>
-                                <li>Digital Transformation</li>
-                                <li>Team Development</li>
-                                <li>IT Governance</li>
-                              </ul>
-                              <ul>
-                                <li>Budget Management</li>
-                                <li>Risk Assessment</li>
-                                <li>Project Management</li>
-                                <li>Vendor Management</li>
-                                <li>Disaster Recovery</li>
-                                <li>Compliance & Auditing</li>
-                              </ul>
+                              <div class="skills-category">
+                                <div class="skills-title">Strategic Leadership</div>
+                                <ul>
+                                  <li>IT Strategic Planning</li>
+                                  <li>Digital Transformation</li>
+                                  <li>Enterprise Architecture</li>
+                                  <li>Global Team Leadership</li>
+                                </ul>
+                              </div>
+                              <div class="skills-category">
+                                <div class="skills-title">Technical Expertise</div>
+                                <ul>
+                                  <li>SAP ERP Implementation</li>
+                                  <li>Microsoft 365 Migration</li>
+                                  <li>Cloud Infrastructure</li>
+                                  <li>Cybersecurity Frameworks</li>
+                                </ul>
+                              </div>
+                              <div class="skills-category">
+                                <div class="skills-title">Operations</div>
+                                <ul>
+                                  <li>24/7 Manufacturing Operations</li>
+                                  <li>ITIL/ITSM Processes</li>
+                                  <li>Budget Management ($2M+)</li>
+                                  <li>Vendor Management</li>
+                                </ul>
+                              </div>
+                              <div class="skills-category">
+                                <div class="skills-title">Security & Compliance</div>
+                                <ul>
+                                  <li>FBI Security Audits</li>
+                                  <li>Disaster Recovery</li>
+                                  <li>Risk Assessment</li>
+                                  <li>Policy Development</li>
+                                </ul>
+                              </div>
                             </div>
                           </div>
 
@@ -307,26 +331,61 @@ const Contact: React.FC = () => {
                             <div class="section-title">PROFESSIONAL EXPERIENCE</div>
                             
                             <div class="experience-item">
-                              <div class="experience-title">Senior IT Director</div>
-                              <div class="experience-company">Enterprise Technology Solutions</div>
-                              <div class="experience-duration">2019 - Present | United States</div>
+                              <div class="experience-title">IT Director</div>
+                              <div class="experience-company">Flexsteel Industries, Inc.</div>
+                              <div class="experience-location">Dubuque, IA</div>
+                              <div class="experience-duration">September 2015 – Present</div>
                               <ul>
-                                <li>Led enterprise-wide digital transformation initiatives resulting in 25% operational efficiency gains</li>
-                                <li>Implemented comprehensive cybersecurity framework achieving 99.9% system availability</li>
-                                <li>Managed $2M+ technology budgets and reduced operational costs by 30%</li>
-                                <li>Built and led high-performing teams of 15+ IT professionals across multiple locations</li>
+                                <li>Lead IT operations for a 24/7 international manufacturer, overseeing infrastructure, support, compliance, and security for teams across the US, Mexico, and Asia</li>
+                                <li>Spearheaded transition from AS/400 to SAP ERP and implemented Microsoft 365, enhancing operational efficiency by 85%</li>
+                                <li>Developed and enforced a comprehensive security program from the ground up, reducing vulnerabilities through policy standardization and advanced tools</li>
+                                <li>Collaborate with global stakeholders to deliver scalable solutions, including SDWAN/SASE and cloud infrastructure upgrades</li>
+                                <li>AI expert utilizing locally hosted AI to both customize the technology and keep proprietary data under control</li>
                               </ul>
                             </div>
 
                             <div class="experience-item">
-                              <div class="experience-title">IT Manager</div>
-                              <div class="experience-company">Technology Infrastructure</div>
-                              <div class="experience-duration">2015 - 2019 | United States</div>
+                              <div class="experience-title">Enterprise Architect & Client Support Team Leader</div>
+                              <div class="experience-company">Roquette America, Inc.</div>
+                              <div class="experience-location">Keokuk, IA</div>
+                              <div class="experience-duration">May 2012 – September 2015</div>
                               <ul>
-                                <li>Architected cloud migration strategy reducing infrastructure costs by 40%</li>
-                                <li>Established disaster recovery protocols ensuring 99.9% uptime</li>
-                                <li>Mentored 10+ junior professionals, with 80% receiving promotions</li>
-                                <li>Implemented ITIL-based service management improving response times by 45%</li>
+                                <li>Directed technical operations for North America's division of a global starch manufacturer, serving as the liaison between IT and business units</li>
+                                <li>Pioneered technology deployments, positioning the US subsidiary as the company's innovation leader, with 200% faster adoption rates</li>
+                                <li>Managed ITIL/ITSM processes and helpdesk operations, improving service delivery metrics by 75% across 4 sites with over 10,000 users</li>
+                              </ul>
+                            </div>
+
+                            <div class="experience-item">
+                              <div class="experience-title">IT Director</div>
+                              <div class="experience-company">City of Branson, Missouri</div>
+                              <div class="experience-location">Branson, MO</div>
+                              <div class="experience-duration">October 2007 – May 2012</div>
+                              <ul>
+                                <li>Oversaw IT strategy for municipal operations, supporting critical services (health, fire, police, 911) and passing an FBI security audit with zero deficiencies</li>
+                                <li>Revamped network infrastructure (LAN/WAN, Cisco, Aruba), boosting system reliability for emergency operations</li>
+                                <li>Partnered with government agencies and C-level leaders to align IT with organizational goals, managing a team of 4 professionals</li>
+                              </ul>
+                            </div>
+
+                            <div class="experience-item">
+                              <div class="experience-title">Systems Administrator</div>
+                              <div class="experience-company">City of Branson, Missouri</div>
+                              <div class="experience-location">Branson, MO</div>
+                              <div class="experience-duration">September 2005 – October 2007</div>
+                              <ul>
+                                <li>Managed enterprise systems and helpdesk, earning promotion to IT Director due to exceptional leadership and performance</li>
+                                <li>Enhanced IT service delivery through process improvements, reducing downtime by 75%</li>
+                              </ul>
+                            </div>
+
+                            <div class="experience-item">
+                              <div class="experience-title">LAN Technician</div>
+                              <div class="experience-company">City of Branson, Missouri</div>
+                              <div class="experience-location">Branson, MO</div>
+                              <div class="experience-duration">April 2004 – September 2005</div>
+                              <ul>
+                                <li>Provided hardware/software support and network troubleshooting, earning promotion to Systems Administrator for demonstrated expertise</li>
                               </ul>
                             </div>
                           </div>
@@ -336,14 +395,33 @@ const Contact: React.FC = () => {
                             <ul>
                               <li>25+ years IT Leadership Experience</li>
                               <li>15+ Successful Projects Delivered</li>
-                              <li>$1M+ in Cost Savings Achieved</li>
+                              <li>85% Operational Efficiency Gain via SAP ERP Implementation</li>
                               <li>99.9% System Availability Maintained</li>
-                              <li>Operations Across 4 Countries</li>
+                              <li>Operations Across 3 Countries (US, Mexico, Asia)</li>
+                              <li>FBI Security Audit: Zero Deficiencies</li>
                             </ul>
                           </div>
 
+                          <div class="section">
+                            <div class="section-title">TECHNICAL SKILLS</div>
+                            <div class="skills-grid">
+                              <div>
+                                <strong>ERP & Systems:</strong> SAP ERP, Microsoft 365, AS/400
+                              </div>
+                              <div>
+                                <strong>Cloud & Infrastructure:</strong> SDWAN/SASE, Cloud Architecture, Network Infrastructure
+                              </div>
+                              <div>
+                                <strong>Security:</strong> XDR, Cybersecurity Frameworks, FBI Compliance
+                              </div>
+                              <div>
+                                <strong>Management:</strong> ITIL/ITSM, Global Team Leadership, Budget Management
+                              </div>
+                            </div>
+                          </div>
+
                           <div class="footer">
-                            Generated from portfolio.djcline.tech | Updated: ${new Date().toLocaleDateString()}
+                            Generated from DJ Cline's Professional Portfolio | Updated: ${new Date().toLocaleDateString()}
                           </div>
                         </body>
                         </html>
