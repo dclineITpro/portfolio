@@ -26,7 +26,7 @@ const EnhancedHero: React.FC = () => {
           <motion.img
             src="/portfolio/dj.jpg"
             alt="DJ Cline"
-            className="w-32 h-32 rounded-full mx-auto mb-6 border-4 border-cyber-blue/50 shadow-lg"
+            className="w-32 h-32 object-cover rounded-full mx-auto mb-6 border-4 border-cyber-blue/50 shadow-lg"
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
