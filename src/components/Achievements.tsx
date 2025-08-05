@@ -49,10 +49,10 @@ const Achievements: React.FC = () => {
 
   const metrics = [
     { value: '25+', suffix: 'years', label: 'IT Leadership Experience' },
-    { value: '15+', suffix: 'projects', label: 'Successful Projects' },
+    { value: '200%', suffix: 'faster', label: 'Technology Adoption Rate' },
     { value: '$1M+', suffix: 'savings', label: 'In Cost Savings' },
     { value: '99.9%', suffix: 'uptime', label: 'System Availability' },
-    { value: '4', suffix: 'countries', label: 'Global Operations' }
+    { value: '5', suffix: 'countries', label: 'Global Operations' }
   ];
 
   return (
