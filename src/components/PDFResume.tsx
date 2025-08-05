@@ -54,8 +54,8 @@ const PDFResume: React.FC = () => {
     pdf.setFontSize(10);
     pdf.setTextColor(100, 100, 100);
     const contactInfo = [
-      'Email: dcline@example.com',
-      'Phone: (555) 123-4567',
+      'Email: djcline@protonmail.com',
+      'Phone: 563-213-6358',
       'Location: United States',
       'LinkedIn: linkedin.com/in/djcline'
     ];

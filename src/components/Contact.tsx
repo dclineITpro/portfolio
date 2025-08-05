@@ -275,7 +275,7 @@ const Contact: React.FC = () => {
                             <div class="name">DJ Cline</div>
                             <div class="title">IT Director & Strategic Technology Leader</div>
                             <div class="contact">
-                              Email: dcline@example.com | Phone: (555) 123-4567<br>
+                              Email: djcline@protonmail.com | Phone: 563-213-6358<br>
                               Location: United States | LinkedIn: linkedin.com/in/dj-cline-22219834
                             </div>
                           </div>
