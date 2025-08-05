@@ -41,8 +41,8 @@ const About: React.FC = () => {
               <h3 className="text-xl font-semibold text-slate-900 mb-4">Professional Philosophy</h3>
               <p className="text-slate-600 leading-relaxed mb-4">
                 With over two decades of progressive IT leadership experience, I have transformed departments 
-                by driving innovative changes and aligning technology with business goals. My expertise spans 
-                technical proficiency and bridging gaps between technical and non-technical stakeholders.
+                by driving innovative changes and aligning technology with business goals. My expertise encompasses 
+                strong technical skills while effectively bridging gaps between technical and non-technical stakeholders.
               </p>
               <p className="text-slate-600 leading-relaxed">
                 I stay current on emerging technologies while prioritizing practical alignment with business needs, 
