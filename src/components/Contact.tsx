@@ -394,11 +394,11 @@ const Contact: React.FC = () => {
                             <div class="section-title">KEY ACHIEVEMENTS</div>
                             <ul>
                               <li>25+ years IT Leadership Experience</li>
-                              <li>15+ Successful Projects Delivered</li>
                               <li>85% Operational Efficiency Gain via SAP ERP Implementation</li>
                               <li>99.9% System Availability Maintained</li>
-                              <li>Operations Across 3 Countries (US, Mexico, Asia)</li>
+                              <li>Operations Across US, Mexico, and Asia</li>
                               <li>FBI Security Audit: Zero Deficiencies</li>
+                              <li>Zero reportable security incidents</li>
                             </ul>
                           </div>
 
