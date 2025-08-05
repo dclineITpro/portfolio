@@ -231,11 +231,11 @@ const Contact: React.FC = () => {
                 </div>
               )}
 
-              <div className="text-center space-y-4">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-3 bg-primary-600 text-white font-medium rounded-lg hover:bg-primary-700 transition-colors duration-200 disabled:opacity-50"
+                  className="inline-flex items-center justify-center px-8 py-3 bg-primary-600 text-white font-medium rounded-lg hover:bg-primary-700 transition-colors duration-200 disabled:opacity-50"
                 >
                   {isSubmitting ? 'Sending...' : 'Send Message'}
                 </button>
@@ -435,30 +435,12 @@ const Contact: React.FC = () => {
                       }, 500);
                     }
                   }}
-                  className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-3 bg-orange-500 text-white font-medium rounded-lg hover:bg-orange-600 transition-colors duration-200"
+                  className="inline-flex items-center justify-center px-8 py-3 bg-orange-500 text-white font-medium rounded-lg hover:bg-orange-600 transition-colors duration-200"
                 >
-                  <Download className="w-5 h-5 mr-2" />
+                  <Download size={20} className="mr-2" />
                   Download Resume (PDF)
                 </button>
               </div>
-
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full inline-flex items-center justify-center px-6 py-3 bg-primary-600 text-white font-semibold rounded-lg hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
-              >
-                {isSubmitting ? (
-                  <>
-                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
-                    Sending...
-                  </>
-                ) : (
-                  <>
-                    <Send size={20} className="mr-2" />
-                    Send Message
-                  </>
-                )}
-              </button>
             </form>
           </div>
         </div>
