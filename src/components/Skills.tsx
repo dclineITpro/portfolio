@@ -117,7 +117,7 @@ const Skills: React.FC = () => {
     {
       category: "Security & Compliance",
       color: "red",
-      items: ["XDR", "Penetration Testing", "Vulnerability Management", "FBI Security Audits", "Zero Trust"]
+      items: ["XDR", "Penetration Testing", "Vulnerability Management", "FBI Security Audits", "SOX Audits", "NIST Framework", "Zero Trust"]
     },
     {
       category: "Infrastructure",
