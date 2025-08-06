@@ -16,7 +16,7 @@ const EnhancedHero: React.FC = () => {
   };
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center">
+    <section id="home" className="relative min-h-screen flex items-center justify-center mt-20 md:mt-24">
       <ParticlesBackground />
 
       {/* Main Content */}
