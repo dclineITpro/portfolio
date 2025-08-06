@@ -31,11 +31,6 @@ const ParticlesBackground = () => {
           onHover: {
             enable: true,
             mode: ["bubble", "grab"],
-            parallax: {
-              enable: true,
-              force: 60,
-              smooth: 10,
-            },
           },
           onClick: {
             enable: true,
