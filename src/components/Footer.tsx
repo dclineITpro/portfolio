@@ -87,7 +87,7 @@ const Footer: React.FC = () => {
                 href="https://www.linkedin.com/in/dj-cline-22219834/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm transition-colors"
+                className="inline-flex items-center px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg text-sm transition-colors"
               >
                 <Linkedin size={16} className="mr-2" />
                 LinkedIn

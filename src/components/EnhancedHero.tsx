@@ -4,7 +4,7 @@ import { TypeAnimation } from 'react-type-animation';
 import Highlights from './Highlights';
 import ParticlesBackground from './ParticlesBackground';
 import PDFResume from './PDFResume';
-import { ChevronDown, Mail, Linkedin, Cpu, Network, Shield, Zap, Download } from 'lucide-react';
+import { ChevronDown, Mail, Linkedin, Cpu, Network, Shield, Zap, Download, FileText } from 'lucide-react';
 
 const EnhancedHero: React.FC = () => {
 
@@ -16,7 +16,7 @@ const EnhancedHero: React.FC = () => {
   };
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center mt-20 md:mt-24">
+    <section id="home" className="relative min-h-screen flex items-start justify-center pt-24 md:pt-24">
       <ParticlesBackground />
 
       {/* Main Content */}
@@ -26,7 +26,7 @@ const EnhancedHero: React.FC = () => {
           <motion.img
             src="/portfolio/dj.jpg"
             alt="DJ Cline"
-            className="w-32 h-32 object-cover rounded-full mx-auto mb-6 border-4 border-cyber-blue/50 shadow-lg z-40 relative"
+            className="w-32 h-32 object-cover rounded-full mx-auto mb-8 border-4 border-primary-600/40 shadow-lg z-40 relative"
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
@@ -35,12 +35,12 @@ const EnhancedHero: React.FC = () => {
           {/* Animated Title */}
           <div className="mb-8">
             <h1 className="text-5xl md:text-7xl font-bold mb-4">
-              <span className="text-gradient animate-text-glow">DJ Cline</span>
+              <span className="text-gradient">DJ Cline</span>
             </h1>
             <div className="flex items-center justify-center space-x-4 mb-4">
-              <Cpu className="w-8 h-8 text-cyber-blue animate-neural" />
-              <Network className="w-8 h-8 text-cyber-green animate-neural" style={{ animationDelay: '0.5s' }} />
-              <Shield className="w-8 h-8 text-cyber-purple animate-neural" style={{ animationDelay: '1s' }} />
+              <Cpu className="w-8 h-8 text-primary-400" />
+              <Network className="w-8 h-8 text-primary-400" />
+              <Shield className="w-8 h-8 text-primary-400" />
             </div>
             <TypeAnimation
               sequence={[
@@ -72,7 +72,7 @@ const EnhancedHero: React.FC = () => {
           <div className="mt-12 mb-8 flex flex-col sm:flex-row items-center justify-center gap-4 flex-wrap">
             <button
               onClick={() => scrollToSection('contact')}
-              className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-cyber-blue to-cyber-purple text-white font-semibold rounded-lg animate-pulse-glow hover:scale-105 transition-transform duration-300"
+              className="inline-flex items-center px-8 py-4 bg-primary-600 text-white font-semibold rounded-lg hover:bg-primary-700 transition-colors duration-300"
             >
               <Mail className="w-5 h-5 mr-2" />
               Get In Touch
@@ -231,16 +231,134 @@ const EnhancedHero: React.FC = () => {
                   }, 500);
                 }
               }}
-              className="inline-flex items-center px-8 py-4 bg-orange-500 text-white font-semibold rounded-lg hover:bg-orange-600 transition-colors duration-300"
+              className="inline-flex items-center px-8 py-4 bg-primary-600 text-white font-semibold rounded-lg hover:bg-primary-700 transition-colors duration-300"
             >
               <Download className="w-5 h-5 mr-2" />
               Download Resume
+            </button>
+            <button
+              onClick={() => {
+                const win = window.open('', '_blank');
+                if (win) {
+                  const html = `
+                    <!DOCTYPE html>
+                    <html>
+                    <head>
+                      <meta charset="utf-8" />
+                      <title>Board One-Pager - DJ Cline</title>
+                      <style>
+                        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 36px; color: #0f172a; }
+                        .title { font-size: 26px; font-weight: 800; color: #0f172a; margin: 0 0 4px; }
+                        .subtitle { color: #334155; font-size: 14px; margin: 0 0 14px; }
+                        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+                        .section { border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px; }
+                        .h3 { font-size: 14px; font-weight: 700; color: #0f172a; margin: 0 0 8px; text-transform: uppercase; letter-spacing: .04em; }
+                        ul { margin: 0; padding-left: 18px; }
+                        li { margin: 4px 0; }
+                        .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+                        .kpi { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 10px; }
+                        .kpi .label { font-size: 10px; color: #64748b; text-transform: uppercase; letter-spacing: .04em; }
+                        .kpi .value { font-size: 16px; font-weight: 800; color: #0f172a; }
+                        .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+                        .pill { display:inline-block; border-radius: 9999px; padding: 2px 8px; font-size: 11px; border:1px solid #e2e8f0; background:#f8fafc; margin-right:6px; }
+                        .footer { margin-top: 12px; color: #64748b; font-size: 11px; text-align:right; }
+                        @media print { body { margin: 18mm; } }
+                      </style>
+                    </head>
+                    <body>
+                      <div class="header">
+                        <div class="title">Board One‑Pager — DJ Cline</div>
+                        <div class="subtitle">Senior IT Director | VP‑Ready Technology & Cybersecurity Leader</div>
+                        <div class="subtitle">Operating across US, Mexico, and Asia • 25+ years experience • Zero reportable security incidents</div>
+                      </div>
+
+                      <div class="grid" style="margin-bottom:16px;">
+                        <div class="section">
+                          <div class="h3">Mission</div>
+                          <p style="margin:0; font-size:13px; color:#334155;">Align technology portfolios to revenue growth, margin expansion, and risk reduction through disciplined operations, data‑driven modernization, and enterprise‑grade security.</p>
+                        </div>
+                        <div class="section">
+                          <div class="h3">Portfolio Scope</div>
+                          <p style="margin:0; font-size:13px; color:#334155;">ERP modernization • SD‑WAN/SASE • Zero Trust/NIST CSF • M365 Hardening • Cloud/Identity • Global operations across 5 countries</p>
+                        </div>
+                      </div>
+
+                      <div class="row" style="margin-bottom:16px;">
+                        <div class="section">
+                          <div class="h3">Strategy Pillars</div>
+                          <ul>
+                            <li><strong>Run:</strong> 99.99% availability; ≥95% change success; MTTR < 4h (critical)</li>
+                            <li><strong>Transform:</strong> ERP modernization; 200% faster adoption; vendor consolidation for $ savings</li>
+                            <li><strong>Secure:</strong> Zero reportable incidents; SOX ITGC sustained; NIST CSF target Tier 4</li>
+                          </ul>
+                        </div>
+                        <div class="section">
+                          <div class="h3">12‑Month Roadmap</div>
+                          <ul>
+                            <li><strong>Q1:</strong> Baseline KPIs, contract/cost review, risk heatmap, stakeholder map</li>
+                            <li><strong>Q2:</strong> Prioritize portfolio; vendor consolidation; patch SLO ≥95%/14d</li>
+                            <li><strong>Q3:</strong> ERP wave 1; SD‑WAN global rollout; identity hardening</li>
+                            <li><strong>Q4:</strong> Zero Trust stage 2; DR test >95% pass; cloud variance within ±5%</li>
+                          </ul>
+                        </div>
+                      </div>
+
+                      <div class="section" style="margin-bottom:16px;">
+                        <div class="h3">KPIs</div>
+                        <div class="kpi-grid">
+                          <div class="kpi"><div class="label">Reliability</div><div class="value">99.99%</div></div>
+                          <div class="kpi"><div class="label">Change Success</div><div class="value">≥95%</div></div>
+                          <div class="kpi"><div class="label">Critical MTTR</div><div class="value">< 4h</div></div>
+                          <div class="kpi"><div class="label">Patch Compliance</div><div class="value">≥95% / 14d</div></div>
+                          <div class="kpi"><div class="label">Phishing Pass</div><div class="value">≥98%</div></div>
+                          <div class="kpi"><div class="label">Cloud Variance</div><div class="value">±5%</div></div>
+                          <div class="kpi"><div class="label">Vendor Count</div><div class="value">−30%</div></div>
+                          <div class="kpi"><div class="label">Adoption Speed</div><div class="value">200%↑</div></div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="section">
+                          <div class="h3">Risk & Controls Posture</div>
+                          <ul>
+                            <li>SOX ITGC sustained; quarterly control testing cadence</li>
+                            <li>NIST CSF maturity tracking; target Tier 4 with defense‑in‑depth</li>
+                            <li>DR tested; RTO/RPO met for mission‑critical workloads</li>
+                            <li>Third‑party risk tiering and continuous monitoring</li>
+                          </ul>
+                        </div>
+                        <div class="section">
+                          <div class="h3">Highlights</div>
+                          <p style="margin:0 0 6px; font-size:13px; color:#334155;">Zero reportable security incidents • Global operations (5 countries)</p>
+                          <div>
+                            <span class="pill">ERP</span>
+                            <span class="pill">SD‑WAN/SASE</span>
+                            <span class="pill">Zero Trust</span>
+                            <span class="pill">M365</span>
+                            <span class="pill">Identity</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="footer">Generated from DJ Cline's Portfolio • Updated: ${new Date().toLocaleDateString()}</div>
+                    </body>
+                    </html>
+                  `;
+                  win.document.write(html);
+                  win.document.close();
+                  setTimeout(() => win.print(), 400);
+                }
+              }}
+              className="inline-flex items-center px-8 py-4 bg-primary-600 text-white font-semibold rounded-lg hover:bg-primary-700 transition-colors duration-300"
+            >
+              <FileText className="w-5 h-5 mr-2" />
+              Board One‑Pager
             </button>
             <a
               href="https://www.linkedin.com/in/dj-cline-22219834/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center px-8 py-4 border-2 border-cyber-blue text-cyber-blue font-semibold rounded-lg hover:bg-cyber-blue hover:text-slate-900 transition-all duration-300"
+              className="inline-flex items-center px-8 py-4 border-2 border-primary-600 text-primary-600 font-semibold rounded-lg hover:bg-primary-50 hover:text-primary-700 transition-all duration-300"
             >
               <Linkedin className="w-5 h-5 mr-2" />
               LinkedIn
@@ -250,15 +368,15 @@ const EnhancedHero: React.FC = () => {
           {/* Animated Tech Stack */}
           <div className="flex justify-center space-x-8 text-slate-400">
             <div className="flex items-center space-x-2">
-              <Zap className="w-5 h-5 text-cyber-orange" />
+              <Zap className="w-5 h-5 text-primary-400" />
               <span>AI/ML</span>
             </div>
             <div className="flex items-center space-x-2">
-              <Shield className="w-5 h-5 text-cyber-green" />
+              <Shield className="w-5 h-5 text-primary-400" />
               <span>Cybersecurity</span>
             </div>
             <div className="flex items-center space-x-2">
-              <Cpu className="w-5 h-5 text-cyber-blue" />
+              <Cpu className="w-5 h-5 text-primary-400" />
               <span>Digital Transformation</span>
             </div>
           </div>
@@ -269,7 +387,7 @@ const EnhancedHero: React.FC = () => {
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
         <button
           onClick={() => scrollToSection('about')}
-          className="text-slate-400 hover:text-cyber-blue transition-colors"
+          className="text-slate-400 hover:text-primary-400 transition-colors"
         >
           <ChevronDown className="w-8 h-8" />
         </button>

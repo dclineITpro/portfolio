@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Send, Linkedin, Briefcase, Download } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Linkedin, Briefcase, Download, FileText } from 'lucide-react';
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -73,7 +73,7 @@ const Contact: React.FC = () => {
       icon: Linkedin,
       label: "LinkedIn",
       href: "https://www.linkedin.com/in/dj-cline-22219834/",
-      color: "bg-blue-600 hover:bg-blue-700"
+      color: "bg-primary-600 hover:bg-primary-700"
     },
     {
       icon: Briefcase,
@@ -100,7 +100,7 @@ const Contact: React.FC = () => {
           {/* Contact Information */}
           <div className="space-y-8">
             <div>
-              <h3 className="text-2xl font-bold mb-6 text-gradient animate-text-glow">Get In Touch</h3>
+              <h3 className="text-2xl font-bold mb-6 text-gradient">Get In Touch</h3>
               <p className="text-white mb-6">
                 I'm always interested in discussing new opportunities, innovative projects, 
                 and ways to drive technology transformation. Whether you're looking for strategic 
@@ -132,7 +132,7 @@ const Contact: React.FC = () => {
             </div>
 
             <div>
-              <h4 className="font-semibold mb-4 text-gradient animate-text-glow">Connect Online</h4>
+              <h4 className="font-semibold mb-4 text-gradient">Connect Online</h4>
               <div className="flex space-x-4">
                 {socialLinks.map((social) => (
                   <a
@@ -220,13 +220,13 @@ const Contact: React.FC = () => {
               </div>
 
               {submitStatus === 'success' && (
-                <div className="bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-lg">
+                <div className="bg-primary-50 border border-primary-200 text-primary-800 px-4 py-3 rounded-lg">
                   Thank you for your message! I'll get back to you within 24 hours.
                 </div>
               )}
 
               {submitStatus === 'error' && (
-                <div className="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg">
+                <div className="bg-primary-50 border border-primary-200 text-primary-800 px-4 py-3 rounded-lg">
                   There was an error sending your message. Please try again or contact me directly.
                 </div>
               )}
@@ -435,10 +435,129 @@ const Contact: React.FC = () => {
                       }, 500);
                     }
                   }}
-                  className="inline-flex items-center justify-center px-8 py-3 bg-orange-500 text-white font-medium rounded-lg hover:bg-orange-600 transition-colors duration-200"
+                  className="inline-flex items-center justify-center px-8 py-3 bg-primary-600 text-white font-medium rounded-lg hover:bg-primary-700 transition-colors duration-200"
                 >
                   <Download size={20} className="mr-2" />
                   Download Resume (PDF)
+                </button>
+                <button
+                  onClick={() => {
+                    const win = window.open('', '_blank');
+                    if (win) {
+                      const html = `
+                        <!DOCTYPE html>
+                        <html>
+                        <head>
+                          <meta charset="utf-8" />
+                          <title>Board One-Pager - DJ Cline</title>
+                          <style>
+                            body { font-family: 'Segoe UI', Arial, sans-serif; margin: 24px; color: #0f172a; line-height: 1.3; }
+                            .title { font-size: 22px; font-weight: 800; color: #0f172a; margin: 0 0 4px; }
+                            .subtitle { color: #334155; font-size: 12px; margin: 0 0 10px; line-height: 1.25; }
+                            .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+                            .section { border: 1px solid #e2e8f0; border-radius: 10px; padding: 8px; }
+                            .h3 { font-size: 12px; font-weight: 700; color: #0f172a; margin: 0 0 6px; text-transform: uppercase; letter-spacing: .04em; }
+                            ul { margin: 0; padding-left: 18px; }
+                            li { margin: 2px 0; }
+                            .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; }
+                            .kpi { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 6px; }
+                            .kpi .label { font-size: 10px; color: #64748b; text-transform: uppercase; letter-spacing: .04em; }
+                            .kpi .value { font-size: 13px; font-weight: 800; color: #0f172a; }
+                            .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+                            .pill { display:inline-block; border-radius: 9999px; padding: 1px 6px; font-size: 10px; border:1px solid #e2e8f0; background:#f8fafc; margin-right:6px; }
+                            .footer { margin-top: 6px; color: #64748b; font-size: 9px; text-align:right; }
+                            @page { size: letter; margin: 10mm; }
+                            @media print { body { margin: 10mm; } .section, .kpi { border-width: 0; } }
+                          </style>
+                        </head>
+                        <body>
+                          <div class="header">
+                            <div class="title">Board One‑Pager — DJ Cline</div>
+                            <div class="subtitle">Senior IT Director | VP‑Ready Technology & Cybersecurity Leader</div>
+                            <div class="subtitle">Operating across US, Mexico, and Asia • 25+ years experience • Zero reportable security incidents</div>
+                          </div>
+
+                          <div class="grid" style="margin-bottom:10px;">
+                            <div class="section">
+                              <div class="h3">Mission</div>
+                              <p style="margin:0; font-size:13px; color:#334155;">Align technology portfolios to revenue growth, margin expansion, and risk reduction through disciplined operations, data‑driven modernization, and enterprise‑grade security.</p>
+                            </div>
+                            <div class="section">
+                              <div class="h3">Portfolio Scope</div>
+                              <p style="margin:0; font-size:13px; color:#334155;">ERP modernization • SD‑WAN/SASE • Zero Trust/NIST CSF • M365 Hardening • Cloud/Identity • Global operations across 5 countries</p>
+                            </div>
+                          </div>
+
+                          <div class="row" style="margin-bottom:10px;">
+                            <div class="section">
+                              <div class="h3">Strategy Pillars</div>
+                              <ul>
+                                <li><strong>Run:</strong> 99.99% availability; ≥95% change success; MTTR < 4h (critical)</li>
+                                <li><strong>Transform:</strong> ERP modernization; 200% faster adoption; vendor consolidation for $ savings</li>
+                                <li><strong>Secure:</strong> Zero reportable incidents; SOX ITGC sustained; NIST CSF target Tier 4</li>
+                              </ul>
+                            </div>
+                            <div class="section">
+                              <div class="h3">12‑Month Roadmap</div>
+                              <ul>
+                                <li><strong>Q1:</strong> Baseline KPIs, contract/cost review, risk heatmap, stakeholder map</li>
+                                <li><strong>Q2:</strong> Prioritize portfolio; vendor consolidation; patch SLO ≥95%/14d</li>
+                                <li><strong>Q3:</strong> ERP wave 1; SD‑WAN global rollout; identity hardening</li>
+                                <li><strong>Q4:</strong> Zero Trust stage 2; DR test >95% pass; cloud variance within ±5%</li>
+                              </ul>
+                            </div>
+                          </div>
+
+                          <div class="section" style="margin-bottom:16px;">
+                            <div class="h3">KPIs</div>
+                            <div class="kpi-grid">
+                              <div class="kpi"><div class="label">Reliability</div><div class="value">99.99%</div></div>
+                              <div class="kpi"><div class="label">Change Success</div><div class="value">≥95%</div></div>
+                              <div class="kpi"><div class="label">Critical MTTR</div><div class="value">&lt; 4h</div></div>
+                              <div class="kpi"><div class="label">Patch Compliance</div><div class="value">≥95% / 14d</div></div>
+                              <div class="kpi"><div class="label">Phishing Pass</div><div class="value">≥98%</div></div>
+                              <div class="kpi"><div class="label">Cloud Variance</div><div class="value">±5%</div></div>
+                              <div class="kpi"><div class="label">Vendor Count</div><div class="value">−30%</div></div>
+                              <div class="kpi"><div class="label">Adoption Speed</div><div class="value">200%↑</div></div>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="section">
+                              <div class="h3">Risk & Controls Posture</div>
+                              <ul>
+                                <li>SOX ITGC sustained; quarterly control testing cadence</li>
+                                <li>NIST CSF maturity tracking; target Tier 4 with defense‑in‑depth</li>
+                                <li>DR tested; RTO/RPO met for mission‑critical workloads</li>
+                                <li>Third‑party risk tiering and continuous monitoring</li>
+                              </ul>
+                            </div>
+                            <div class="section">
+                              <div class="h3">Highlights</div>
+                              <p style="margin:0 0 6px; font-size:13px; color:#334155;">Zero reportable security incidents • Global operations (5 countries)</p>
+                              <div>
+                                <span class="pill">ERP</span>
+                                <span class="pill">SD‑WAN/SASE</span>
+                                <span class="pill">Zero Trust</span>
+                                <span class="pill">M365</span>
+                                <span class="pill">Identity</span>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="footer">Generated from DJ Cline's Portfolio • Updated: ${new Date().toLocaleDateString()}</div>
+                        </body>
+                        </html>
+                      `;
+                      win.document.write(html);
+                      win.document.close();
+                      setTimeout(() => win.print(), 400);
+                    }
+                  }}
+                  className="inline-flex items-center justify-center px-8 py-3 bg-primary-600 text-white font-medium rounded-lg hover:bg-primary-700 transition-colors duration-200 ml-0 sm:ml-2"
+                >
+                  <FileText size={20} className="mr-2" />
+                  Board One‑Pager
                 </button>
               </div>
             </form>

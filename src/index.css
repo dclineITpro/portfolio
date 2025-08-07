@@ -13,10 +13,11 @@
   --primary-700: #1d4ed8;
   --primary-800: #1e40af;
   --primary-900: #1e3a8a;
-  --cyber-green: #00ff41;
-  --cyber-blue: #00d4ff;
-  --cyber-purple: #8b5cf6;
-  --cyber-orange: #ff6b35;
+  /* Executive indigo palette for legacy utilities */
+  --cyber-green: #a5b4fc; /* indigo-300/400 */
+  --cyber-blue: #4f46e5;  /* indigo-600 */
+  --cyber-purple: #3730a3; /* indigo-800 */
+  --cyber-orange: #f59e0b; /* amber-500, used sparingly */
 }
 
 @layer base {
@@ -55,14 +56,14 @@
   }
   
   .glow-effect {
-    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3), 0 0 40px rgba(59, 130, 246, 0.1);
+    box-shadow: 0 0 12px rgba(79, 70, 229, 0.18), 0 0 24px rgba(79, 70, 229, 0.08);
   }
   
   .network-bg {
     background-image: 
-      radial-gradient(circle at 20% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 40% 20%, rgba(0, 212, 255, 0.1) 0%, transparent 50%);
+      radial-gradient(circle at 20% 50%, rgba(79, 70, 229, 0.10) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 40% 20%, rgba(99, 102, 241, 0.06) 0%, transparent 50%);
   }
   
   .particle-bg {
@@ -78,10 +79,10 @@
     right: 0;
     bottom: 0;
     background: 
-      radial-gradient(2px 2px at 20px 30px, rgba(59, 130, 246, 0.3), transparent),
-      radial-gradient(2px 2px at 40px 70px, rgba(139, 92, 246, 0.3), transparent),
-      radial-gradient(1px 1px at 90px 40px, rgba(0, 212, 255, 0.3), transparent),
-      radial-gradient(1px 1px at 130px 80px, rgba(255, 107, 53, 0.3), transparent);
+      radial-gradient(2px 2px at 20px 30px, rgba(79, 70, 229, 0.18), transparent),
+      radial-gradient(2px 2px at 40px 70px, rgba(99, 102, 241, 0.15), transparent),
+      radial-gradient(1px 1px at 90px 40px, rgba(99, 102, 241, 0.10), transparent),
+      radial-gradient(1px 1px at 130px 80px, rgba(148, 163, 184, 0.10), transparent);
     background-size: 200px 200px;
     animation: float 20s linear infinite;
     pointer-events: none;
@@ -129,8 +130,8 @@
   }
   
   .border-glow {
-    border: 1px solid rgba(59, 130, 246, 0.3);
-    box-shadow: 0 0 10px rgba(59, 130, 246, 0.2);
+    border: 1px solid rgba(79, 70, 229, 0.22);
+    box-shadow: 0 0 6px rgba(79, 70, 229, 0.14);
   }
   
   .grid-pattern {
@@ -149,11 +150,11 @@
     content: '';
     position: absolute;
     inset: -1px;
-    background: linear-gradient(45deg, var(--cyber-blue), var(--cyber-purple), var(--cyber-green));
+    background: linear-gradient(45deg, rgba(79,70,229,0.6), rgba(99,102,241,0.5));
     border-radius: inherit;
     z-index: -1;
-    opacity: 0.5;
-    animation: borderGlow 3s linear infinite;
+    opacity: 0.35;
+    animation: borderGlow 6s linear infinite;
   }
   
   @keyframes fadeIn {

@@ -102,7 +102,7 @@ const Highlights = () => {
             <div
               className={`flex flex-col items-center justify-center gap-2 transition-opacity duration-700 ${box.visible ? 'opacity-100' : 'opacity-0'}`}
             >
-              <Icon className="w-8 h-8 text-cyber-blue" />
+              <Icon className="w-8 h-8 text-primary-400" />
               <p className="text-slate-300">{box.item.text}</p>
             </div>
           </div>

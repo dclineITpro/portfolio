@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Menu, X, User, Briefcase, Award, Mail } from 'lucide-react';
+import { Menu, X, User, Briefcase, Award, Mail, ShieldCheck, FileCheck2, ListChecks } from 'lucide-react';
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -8,6 +8,9 @@ const Header: React.FC = () => {
     { name: 'About', href: '#about', icon: User },
     { name: 'Experience', href: '#experience', icon: Briefcase },
     { name: 'Skills', href: '#skills', icon: Award },
+    { name: 'Frameworks', href: '#frameworks', icon: ShieldCheck },
+    { name: 'Audit Outcomes', href: '#audit-outcomes', icon: FileCheck2 },
+    { name: 'Skills Matrix', href: '#skills-matrix', icon: ListChecks },
     { name: 'Contact', href: '#contact', icon: Mail },
   ];
 
