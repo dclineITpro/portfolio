@@ -9,6 +9,9 @@ import Achievements from './components/Achievements';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import ScrollAnimationWrapper from './components/ScrollAnimationWrapper';
+import CertificationsFrameworks from './components/CertificationsFrameworks';
+import AuditOutcomes from './components/AuditOutcomes';
+import SkillsMatrix from './components/SkillsMatrix';
 
 function App() {
   return (
@@ -25,6 +28,15 @@ function App() {
         </ScrollAnimationWrapper>
         <ScrollAnimationWrapper>
           <Skills />
+        </ScrollAnimationWrapper>
+        <ScrollAnimationWrapper>
+          <CertificationsFrameworks />
+        </ScrollAnimationWrapper>
+        <ScrollAnimationWrapper>
+          <AuditOutcomes />
+        </ScrollAnimationWrapper>
+        <ScrollAnimationWrapper>
+          <SkillsMatrix />
         </ScrollAnimationWrapper>
         <ScrollAnimationWrapper>
           <Achievements />

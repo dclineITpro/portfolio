@@ -176,13 +176,14 @@ const Skills: React.FC = () => {
             {technicalSkills.map((category) => (
               <div key={category.category}>
                 <h4 className={`font-bold text-${category.color}-600 mb-3`}>{category.category}</h4>
-                <div className="flex flex-wrap gap-2">
+                <ul className="space-y-2">
                   {category.items.map((item, idx) => (
-                    <span key={idx} className={`px-3 py-1 bg-${category.color}-100 text-slate-800 rounded-full text-sm border border-${category.color}-200 hover:bg-${category.color}-200 transition-colors`}>
+                    <li key={idx} className="text-sm text-slate-700 flex items-center hover:text-slate-900 transition-colors">
+                      <span className={`w-1.5 h-1.5 bg-${category.color}-500 rounded-full mr-2 flex-shrink-0`}></span>
                       {item}
-                    </span>
+                    </li>
                   ))}
-                </div>
+                </ul>
               </div>
             ))}
           </div>

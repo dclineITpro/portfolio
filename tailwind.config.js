@@ -52,7 +52,11 @@ export default {
           700: '#334155',
           800: '#1e293b',
           900: '#0f172a',
-        }
+        },
+        'cyber-blue': '#00d4ff',
+        'cyber-green': '#00ff41',
+        'cyber-purple': '#8b5cf6',
+        'cyber-orange': '#ff6b35'
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
