@@ -35,7 +35,7 @@ const EnhancedHero: React.FC = () => {
           {/* Animated Title */}
           <div className="mb-8">
             <h1 className="text-5xl md:text-7xl font-bold mb-4">
-              <span className="text-gradient animate-text-glow">DJ Cline</span>
+              <span className="text-gradient">DJ Cline</span>
             </h1>
             <div className="flex items-center justify-center space-x-4 mb-4">
               <Cpu className="w-8 h-8 text-cyber-blue animate-neural" />
@@ -72,7 +72,7 @@ const EnhancedHero: React.FC = () => {
           <div className="mt-12 mb-8 flex flex-col sm:flex-row items-center justify-center gap-4 flex-wrap">
             <button
               onClick={() => scrollToSection('contact')}
-              className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-cyber-blue to-cyber-purple text-white font-semibold rounded-lg animate-pulse-glow hover:scale-105 transition-transform duration-300"
+              className="inline-flex items-center px-8 py-4 bg-primary-600 text-white font-semibold rounded-lg hover:bg-primary-700 transition-colors duration-300"
             >
               <Mail className="w-5 h-5 mr-2" />
               Get In Touch
@@ -231,7 +231,7 @@ const EnhancedHero: React.FC = () => {
                   }, 500);
                 }
               }}
-              className="inline-flex items-center px-8 py-4 bg-orange-500 text-white font-semibold rounded-lg hover:bg-orange-600 transition-colors duration-300"
+              className="inline-flex items-center px-8 py-4 bg-primary-600 text-white font-semibold rounded-lg hover:bg-primary-700 transition-colors duration-300"
             >
               <Download className="w-5 h-5 mr-2" />
               Download Resume
@@ -349,7 +349,7 @@ const EnhancedHero: React.FC = () => {
                   setTimeout(() => win.print(), 400);
                 }
               }}
-              className="inline-flex items-center px-8 py-4 bg-cyan-500 text-white font-semibold rounded-lg hover:bg-cyan-600 transition-colors duration-300"
+              className="inline-flex items-center px-8 py-4 bg-primary-600 text-white font-semibold rounded-lg hover:bg-primary-700 transition-colors duration-300"
             >
               <FileText className="w-5 h-5 mr-2" />
               Board One‑Pager
@@ -358,7 +358,7 @@ const EnhancedHero: React.FC = () => {
               href="https://www.linkedin.com/in/dj-cline-22219834/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center px-8 py-4 border-2 border-cyber-blue text-cyber-blue font-semibold rounded-lg hover:bg-cyber-blue hover:text-slate-900 transition-all duration-300"
+              className="inline-flex items-center px-8 py-4 border-2 border-primary-600 text-primary-600 font-semibold rounded-lg hover:bg-primary-50 hover:text-primary-700 transition-all duration-300"
             >
               <Linkedin className="w-5 h-5 mr-2" />
               LinkedIn

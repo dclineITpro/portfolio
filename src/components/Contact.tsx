@@ -100,7 +100,7 @@ const Contact: React.FC = () => {
           {/* Contact Information */}
           <div className="space-y-8">
             <div>
-              <h3 className="text-2xl font-bold mb-6 text-gradient animate-text-glow">Get In Touch</h3>
+              <h3 className="text-2xl font-bold mb-6 text-gradient">Get In Touch</h3>
               <p className="text-white mb-6">
                 I'm always interested in discussing new opportunities, innovative projects, 
                 and ways to drive technology transformation. Whether you're looking for strategic 
@@ -132,7 +132,7 @@ const Contact: React.FC = () => {
             </div>
 
             <div>
-              <h4 className="font-semibold mb-4 text-gradient animate-text-glow">Connect Online</h4>
+              <h4 className="font-semibold mb-4 text-gradient">Connect Online</h4>
               <div className="flex space-x-4">
                 {socialLinks.map((social) => (
                   <a
@@ -435,7 +435,7 @@ const Contact: React.FC = () => {
                       }, 500);
                     }
                   }}
-                  className="inline-flex items-center justify-center px-8 py-3 bg-orange-500 text-white font-medium rounded-lg hover:bg-orange-600 transition-colors duration-200"
+                  className="inline-flex items-center justify-center px-8 py-3 bg-primary-600 text-white font-medium rounded-lg hover:bg-primary-700 transition-colors duration-200"
                 >
                   <Download size={20} className="mr-2" />
                   Download Resume (PDF)
@@ -554,7 +554,7 @@ const Contact: React.FC = () => {
                       setTimeout(() => win.print(), 400);
                     }
                   }}
-                  className="inline-flex items-center justify-center px-8 py-3 bg-cyan-500 text-white font-medium rounded-lg hover:bg-cyan-600 transition-colors duration-200 ml-0 sm:ml-2"
+                  className="inline-flex items-center justify-center px-8 py-3 bg-primary-600 text-white font-medium rounded-lg hover:bg-primary-700 transition-colors duration-200 ml-0 sm:ml-2"
                 >
                   <FileText size={20} className="mr-2" />
                   Board One‑Pager

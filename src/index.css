@@ -13,10 +13,11 @@
   --primary-700: #1d4ed8;
   --primary-800: #1e40af;
   --primary-900: #1e3a8a;
-  --cyber-green: #00ff41;
-  --cyber-blue: #00d4ff;
-  --cyber-purple: #8b5cf6;
-  --cyber-orange: #ff6b35;
+  /* Executive indigo palette for legacy utilities */
+  --cyber-green: #a5b4fc; /* indigo-300/400 */
+  --cyber-blue: #4f46e5;  /* indigo-600 */
+  --cyber-purple: #3730a3; /* indigo-800 */
+  --cyber-orange: #f59e0b; /* amber-500, used sparingly */
 }
 
 @layer base {
