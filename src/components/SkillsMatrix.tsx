@@ -46,7 +46,7 @@ const domains: { domain: string; items: SkillItem[] }[] = [
 
 const LevelBar: React.FC<{ level: number }> = ({ level }) => {
   const pct = (level / 5) * 100;
-  const color = level >= 5 ? 'bg-cyber-green' : level >= 4 ? 'bg-cyber-blue' : 'bg-cyber-purple';
+  const color = level >= 5 ? 'bg-primary-600' : level >= 4 ? 'bg-primary-500' : 'bg-primary-400';
   return (
     <div className="w-full h-2 bg-slate-700 rounded">
       <div className={`${color} h-2 rounded`} style={{ width: `${pct}%` }} />

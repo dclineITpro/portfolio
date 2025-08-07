@@ -5,7 +5,7 @@ const Card: React.FC<{ title: string; Icon: React.ElementType; subtitle?: string
   = ({ title, Icon, subtitle, children }) => (
   <div className="cyber-card p-6 rounded-lg hover-lift">
     <div className="flex items-center mb-4">
-      <Icon className="w-6 h-6 text-cyber-blue mr-2" />
+      <Icon className="w-6 h-6 text-primary-400 mr-2" />
       <h3 className="text-xl font-semibold text-white">{title}</h3>
     </div>
     {subtitle && <p className="text-slate-300 mt-1 mb-4">{subtitle}</p>}

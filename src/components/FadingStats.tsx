@@ -61,7 +61,7 @@ const FadingStats: React.FC = () => {
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.5 }}
         >
-          <div className="text-3xl font-bold text-cyber-green">{stats[index].title}</div>
+          <div className="text-3xl font-bold text-primary-400">{stats[index].title}</div>
           <div className="text-sm text-slate-400">{stats[index].description}</div>
         </motion.div>
       </AnimatePresence>

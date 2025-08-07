@@ -73,7 +73,7 @@ const Contact: React.FC = () => {
       icon: Linkedin,
       label: "LinkedIn",
       href: "https://www.linkedin.com/in/dj-cline-22219834/",
-      color: "bg-blue-600 hover:bg-blue-700"
+      color: "bg-primary-600 hover:bg-primary-700"
     },
     {
       icon: Briefcase,
@@ -220,13 +220,13 @@ const Contact: React.FC = () => {
               </div>
 
               {submitStatus === 'success' && (
-                <div className="bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-lg">
+                <div className="bg-primary-50 border border-primary-200 text-primary-800 px-4 py-3 rounded-lg">
                   Thank you for your message! I'll get back to you within 24 hours.
                 </div>
               )}
 
               {submitStatus === 'error' && (
-                <div className="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg">
+                <div className="bg-primary-50 border border-primary-200 text-primary-800 px-4 py-3 rounded-lg">
                   There was an error sending your message. Please try again or contact me directly.
                 </div>
               )}

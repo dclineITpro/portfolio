@@ -26,7 +26,7 @@ const EnhancedHero: React.FC = () => {
           <motion.img
             src="/portfolio/dj.jpg"
             alt="DJ Cline"
-            className="w-32 h-32 object-cover rounded-full mx-auto mb-8 border-4 border-cyber-blue/50 shadow-lg z-40 relative"
+            className="w-32 h-32 object-cover rounded-full mx-auto mb-8 border-4 border-primary-600/40 shadow-lg z-40 relative"
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
@@ -38,9 +38,9 @@ const EnhancedHero: React.FC = () => {
               <span className="text-gradient">DJ Cline</span>
             </h1>
             <div className="flex items-center justify-center space-x-4 mb-4">
-              <Cpu className="w-8 h-8 text-cyber-blue animate-neural" />
-              <Network className="w-8 h-8 text-cyber-green animate-neural" style={{ animationDelay: '0.5s' }} />
-              <Shield className="w-8 h-8 text-cyber-purple animate-neural" style={{ animationDelay: '1s' }} />
+              <Cpu className="w-8 h-8 text-primary-400" />
+              <Network className="w-8 h-8 text-primary-400" />
+              <Shield className="w-8 h-8 text-primary-400" />
             </div>
             <TypeAnimation
               sequence={[
@@ -368,15 +368,15 @@ const EnhancedHero: React.FC = () => {
           {/* Animated Tech Stack */}
           <div className="flex justify-center space-x-8 text-slate-400">
             <div className="flex items-center space-x-2">
-              <Zap className="w-5 h-5 text-cyber-orange" />
+              <Zap className="w-5 h-5 text-primary-400" />
               <span>AI/ML</span>
             </div>
             <div className="flex items-center space-x-2">
-              <Shield className="w-5 h-5 text-cyber-green" />
+              <Shield className="w-5 h-5 text-primary-400" />
               <span>Cybersecurity</span>
             </div>
             <div className="flex items-center space-x-2">
-              <Cpu className="w-5 h-5 text-cyber-blue" />
+              <Cpu className="w-5 h-5 text-primary-400" />
               <span>Digital Transformation</span>
             </div>
           </div>
@@ -387,7 +387,7 @@ const EnhancedHero: React.FC = () => {
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
         <button
           onClick={() => scrollToSection('about')}
-          className="text-slate-400 hover:text-cyber-blue transition-colors"
+          className="text-slate-400 hover:text-primary-400 transition-colors"
         >
           <ChevronDown className="w-8 h-8" />
         </button>

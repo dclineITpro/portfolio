@@ -25,7 +25,7 @@ const CertificationsFrameworks: React.FC = () => {
                 {nistFunctions.map((fn) => (
                   <span
                     key={fn}
-                    className="px-3 py-1 bg-slate-700 text-cyber-blue rounded-full text-xs font-medium border border-slate-600"
+                    className="px-3 py-1 bg-slate-700 text-primary-400 rounded-full text-xs font-medium border border-slate-600"
                   >
                     {fn}
                   </span>
@@ -42,10 +42,10 @@ const CertificationsFrameworks: React.FC = () => {
             <div className="cyber-card p-6 rounded-lg">
               <h3 className="text-xl font-semibold text-white mb-4">Standards & Compliance</h3>
               <div className="flex flex-wrap gap-2 mb-3">
-                <span className="px-3 py-1 bg-slate-700 text-cyber-purple rounded-full text-xs font-medium border border-slate-600">SOX (ITGC)</span>
-                <span className="px-3 py-1 bg-slate-700 text-cyber-green rounded-full text-xs font-medium border border-slate-600">Zero Trust</span>
-                <span className="px-3 py-1 bg-slate-700 text-cyber-blue rounded-full text-xs font-medium border border-slate-600">CIS Benchmarks</span>
-                <span className="px-3 py-1 bg-slate-700 text-cyber-orange rounded-full text-xs font-medium border border-slate-600">M365 Hardening</span>
+                <span className="px-3 py-1 bg-slate-700 text-primary-400 rounded-full text-xs font-medium border border-slate-600">SOX (ITGC)</span>
+                <span className="px-3 py-1 bg-slate-700 text-primary-400 rounded-full text-xs font-medium border border-slate-600">Zero Trust</span>
+                <span className="px-3 py-1 bg-slate-700 text-primary-400 rounded-full text-xs font-medium border border-slate-600">CIS Benchmarks</span>
+                <span className="px-3 py-1 bg-slate-700 text-primary-400 rounded-full text-xs font-medium border border-slate-600">M365 Hardening</span>
               </div>
               <ul className="mt-2 list-disc list-inside text-slate-300 space-y-1">
                 <li><span className="text-white font-medium">SOX (ITGC):</span> Access, change, and operations controls; evidence lifecycle and audit readiness.</li>
