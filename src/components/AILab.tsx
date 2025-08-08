@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Bot, Upload, Sparkles, Database, Settings as SettingsIcon } from 'lucide-react';
 import SettingsModal from './SettingsModal';
-import { Provider, getStoredKey, getStoredProvider, callProvider, callProviderStream } from '../utils/aiProviders';
+import { Provider, getStoredKey, getStoredProvider, callProvider, callProviderStream, getOllamaBase, getOllamaModel } from '../utils/aiProviders';
 import { buildSemanticIndex } from '../utils/retrieval';
 
 // ---- Simple Local RAG (TF-IDF) utilities ----
@@ -288,8 +288,13 @@ const ResumeQA: React.FC<{ mode?: Mode; provider?: Provider; retrieval?: Retriev
 
       if (mode === 'api') {
         const key = getStoredKey(provider);
-        if (!key) {
+        if (provider !== 'ollama' && !key) {
           setAnswer('No API key found for selected provider. Open Settings to add a key.');
+          onMissingKey?.();
+          return;
+        }
+        if (provider === 'ollama' && !getOllamaModel().trim()) {
+          setAnswer('No Ollama model selected. Open Settings to choose one from your Ollama server.');
           onMissingKey?.();
           return;
         }
@@ -298,11 +303,11 @@ const ResumeQA: React.FC<{ mode?: Mode; provider?: Provider; retrieval?: Retriev
         const prompt = `Question: ${query}\n\nUse the resume context below to answer in under 60 words. Cite sections inline briefly if useful.\n\nContext:\n${context}`;
         // Stream if supported
         if (provider === 'gemini') {
-          const apiAnswer = await callProvider({ provider, apiKey: key, prompt, system });
+          const apiAnswer = await callProvider({ provider, apiKey: key || '', prompt, system, baseUrl: getOllamaBase(), model: getOllamaModel() });
           setAnswer(apiAnswer.trim());
         } else {
           setAnswer('');
-          await callProviderStream({ provider, apiKey: key, prompt, system, onToken: (t) => setAnswer((prev) => prev + t) });
+          await callProviderStream({ provider, apiKey: key || '', prompt, system, baseUrl: getOllamaBase(), model: getOllamaModel(), onToken: (t) => setAnswer((prev) => prev + t) });
         }
       } else {
         const bullets = top.slice(0, 2).map((x) => `- ${x.chunk.text}`).join('\n');
@@ -530,7 +535,13 @@ const AILab: React.FC = () => {
                 <option value="gemini">Gemini</option>
                 <option value="groq">Groq</option>
                 <option value="openrouter">OpenRouter</option>
+                <option value="ollama">Ollama</option>
               </select>
+            )}
+            {mode === 'api' && provider === 'ollama' && typeof window !== 'undefined' && window.location.protocol === 'https:' && getOllamaBase().startsWith('http://') && (
+              <div className="text-xs text-amber-300 bg-amber-900/30 border border-amber-700 rounded px-2 py-1">
+                HTTPS page cannot call an http:// Ollama server. Run the site locally (npm run preview) or set an HTTPS base URL/proxy for Ollama.
+              </div>
             )}
             <button
               className="inline-flex items-center px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-slate-200 text-sm"

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { X } from 'lucide-react';
-import { Provider, getStoredKey, setStoredKey, getStoredProvider, setStoredProvider } from '../utils/aiProviders';
+import { Provider, getStoredKey, setStoredKey, getStoredProvider, setStoredProvider, getOllamaBase, setOllamaBase, getOllamaModel, setOllamaModel, fetchOllamaModels } from '../utils/aiProviders';
 
 interface SettingsModalProps {
   open: boolean;
@@ -8,17 +8,23 @@ interface SettingsModalProps {
   onSaved?: () => void;
 }
 
-const providers: Provider[] = ['gemini', 'groq', 'openrouter'];
+const providers: Provider[] = ['gemini', 'groq', 'openrouter', 'ollama'];
 
 const label: Record<Provider, string> = {
   gemini: 'Google Gemini (AI Studio)',
   groq: 'Groq (Llama/Mixtral)',
   openrouter: 'OpenRouter (Multi‑model)',
+  ollama: 'Ollama (Local/Remote)',
 };
 
 const SettingsModal: React.FC<SettingsModalProps> = ({ open, onClose, onSaved }) => {
-  const [keys, setKeys] = useState<Record<Provider, string>>({ gemini: '', groq: '', openrouter: '' });
+  const [keys, setKeys] = useState<Record<Provider, string>>({ gemini: '', groq: '', openrouter: '', ollama: '' });
   const [defaultProvider, setDefaultProvider] = useState<Provider>('gemini');
+  const [ollamaBase, setBase] = useState<string>('http://localhost:11434');
+  const [ollamaModel, setModel] = useState<string>('');
+  const [ollamaModels, setOllamaModels] = useState<string[]>([]);
+  const [modelsLoading, setModelsLoading] = useState<boolean>(false);
+  const [modelsError, setModelsError] = useState<string>('');
 
   useEffect(() => {
     if (!open) return;
@@ -26,14 +32,45 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ open, onClose, onSaved })
       gemini: getStoredKey('gemini') || '',
       groq: getStoredKey('groq') || '',
       openrouter: getStoredKey('openrouter') || '',
+      ollama: getStoredKey('ollama') || '',
     };
     setKeys(k);
     setDefaultProvider(getStoredProvider() || 'gemini');
+    setBase(getOllamaBase());
+    setModel(getOllamaModel());
+    // fetch models on open
+    (async () => {
+      setModelsError('');
+      setModelsLoading(true);
+      try {
+        const list = await fetchOllamaModels(getOllamaBase(), k.ollama || undefined);
+        setOllamaModels(list);
+      } catch (e: any) {
+        setModelsError('Could not load models');
+      } finally {
+        setModelsLoading(false);
+      }
+    })();
   }, [open]);
+
+  const refreshModels = async () => {
+    setModelsError('');
+    setModelsLoading(true);
+    try {
+      const list = await fetchOllamaModels(ollamaBase, keys.ollama || undefined);
+      setOllamaModels(list);
+    } catch (e: any) {
+      setModelsError('Could not load models');
+    } finally {
+      setModelsLoading(false);
+    }
+  };
 
   const save = () => {
     providers.forEach((p) => setStoredKey(p, keys[p]));
     setStoredProvider(defaultProvider);
+    setOllamaBase(ollamaBase);
+    setOllamaModel(ollamaModel);
     onSaved?.();
     onClose();
   };
@@ -65,7 +102,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ open, onClose, onSaved })
           </div>
           {providers.map((p) => (
             <div key={p}>
-              <label className="block text-sm text-slate-300 mb-1">{label[p]} API Key</label>
+              <label className="block text-sm text-slate-300 mb-1">{label[p]} API Key{p === 'ollama' ? ' (optional)' : ''}</label>
               <input
                 type="password"
                 className="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-slate-200"
@@ -75,6 +112,48 @@ const SettingsModal: React.FC<SettingsModalProps> = ({ open, onClose, onSaved })
               />
             </div>
           ))}
+          <div className="pt-2 border-t border-slate-800">
+            <div className="text-slate-200 font-medium mb-2">Ollama Settings</div>
+            <div className="grid gap-3">
+              <div>
+                <label className="block text-sm text-slate-300 mb-1">Base URL</label>
+                <input
+                  type="text"
+                  className="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-slate-200"
+                  placeholder="http://localhost:11434"
+                  value={ollamaBase}
+                  onChange={(e) => setBase(e.target.value)}
+                />
+              </div>
+              <div>
+                <div className="flex items-center justify-between mb-1">
+                  <label className="block text-sm text-slate-300">Model</label>
+                  <div className="flex items-center gap-2">
+                    <button type="button" onClick={refreshModels} className="px-2 py-1 text-xs bg-slate-800 border border-slate-700 rounded text-slate-200">Refresh</button>
+                    {modelsLoading && <span className="text-xs text-slate-400">Loading…</span>}
+                    {!modelsLoading && modelsError && <span className="text-xs text-amber-300">{modelsError}</span>}
+                  </div>
+                </div>
+                <input
+                  list="ollama-models"
+                  type="text"
+                  className="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-slate-200"
+                  placeholder="llama3.1:8b-instruct"
+                  value={ollamaModel}
+                  onChange={(e) => setModel(e.target.value)}
+                />
+                <datalist id="ollama-models">
+                  {ollamaModels.map((m) => (
+                    <option key={m} value={m} />
+                  ))}
+                </datalist>
+                {ollamaModels.length === 0 && !modelsLoading && !modelsError && (
+                  <div className="text-xs text-slate-400 mt-1">No models found. Make sure Ollama is running and you have pulled at least one model.</div>
+                )}
+              </div>
+              <div className="text-xs text-slate-400">Tip: Ensure the model is pulled in your Ollama server. Example: <code>ollama run llama3.1:8b-instruct</code></div>
+            </div>
+          </div>
           <div className="text-xs text-slate-400">
             Your keys are stored only in this browser via localStorage and are never sent to any server except the provider you call.
           </div>

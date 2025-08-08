@@ -12,3 +12,7 @@ npm run dev
 ```
 
 <!-- Trigger deployment again -->
+
+## Note on AI Lab
+
+The experimental AI Lab section and related provider integrations have been removed to streamline the portfolio.

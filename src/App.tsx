@@ -11,7 +11,7 @@ import ScrollAnimationWrapper from './components/ScrollAnimationWrapper';
 import CertificationsFrameworks from './components/CertificationsFrameworks';
 import AuditOutcomes from './components/AuditOutcomes';
 import SkillsMatrix from './components/SkillsMatrix';
-import LazyAILab from './components/LazyAILab';
+// AI Lab removed
 
 function App() {
   return (
@@ -37,9 +37,7 @@ function App() {
         <ScrollAnimationWrapper>
           <SkillsMatrix />
         </ScrollAnimationWrapper>
-        <ScrollAnimationWrapper>
-          <LazyAILab />
-        </ScrollAnimationWrapper>
+        {/* AI Lab removed */}
         <ScrollAnimationWrapper>
           <Achievements />
         </ScrollAnimationWrapper>
