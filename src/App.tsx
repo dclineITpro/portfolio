@@ -1,5 +1,4 @@
 import React from 'react';
-import AnimatedBackground from './components/AnimatedBackground';
 import EnhancedHero from './components/EnhancedHero';
 import Header from './components/Header';
 import About from './components/About';
@@ -12,12 +11,11 @@ import ScrollAnimationWrapper from './components/ScrollAnimationWrapper';
 import CertificationsFrameworks from './components/CertificationsFrameworks';
 import AuditOutcomes from './components/AuditOutcomes';
 import SkillsMatrix from './components/SkillsMatrix';
-import AILab from './components/AILab';
+import LazyAILab from './components/LazyAILab';
 
 function App() {
   return (
     <div className="min-h-screen relative">
-      <AnimatedBackground />
       <div className="relative z-10">
         <Header />
         <EnhancedHero />
@@ -40,7 +38,7 @@ function App() {
           <SkillsMatrix />
         </ScrollAnimationWrapper>
         <ScrollAnimationWrapper>
-          <AILab />
+          <LazyAILab />
         </ScrollAnimationWrapper>
         <ScrollAnimationWrapper>
           <Achievements />

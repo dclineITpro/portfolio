@@ -1,9 +1,52 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Bot, Upload, Mic, MicOff, Sparkles, Database, Settings as SettingsIcon } from 'lucide-react';
+import { Bot, Upload, Sparkles, Database, Settings as SettingsIcon } from 'lucide-react';
 import SettingsModal from './SettingsModal';
-import { Provider, getStoredKey, getStoredProvider, callProvider } from '../utils/aiProviders';
+import { Provider, getStoredKey, getStoredProvider, callProvider, callProviderStream } from '../utils/aiProviders';
+import { buildSemanticIndex } from '../utils/retrieval';
 
 // ---- Simple Local RAG (TF-IDF) utilities ----
+
+// Shared worker for off-main-thread tasks (TF-IDF & CSV)
+let sharedWorker: Worker | null = null;
+function getWorker(): Worker {
+  if (!sharedWorker) {
+    // Vite-friendly worker import
+    sharedWorker = new Worker(new URL('../workers/aiWorker.ts', import.meta.url), { type: 'module' });
+  }
+  return sharedWorker;
+}
+
+function makeId() {
+  return Math.random().toString(36).slice(2);
+}
+
+async function postWorker<T = any>(msg: any, waitFor: string): Promise<T> {
+  const worker = getWorker();
+  const reqId = msg.reqId || makeId();
+  return new Promise<T>((resolve, reject) => {
+    const timeout = setTimeout(() => {
+      worker.removeEventListener('message', onMsg as any);
+      reject(new Error('Worker timeout'));
+    }, 8000);
+    function onMsg(e: MessageEvent<any>) {
+      const data = e.data;
+      if (!data || (data.type !== waitFor && data.type !== 'error')) return;
+      if (data.type === 'error' && (!data.reqId || data.reqId === reqId)) {
+        clearTimeout(timeout);
+        worker.removeEventListener('message', onMsg as any);
+        reject(new Error(data.message || 'Worker error'));
+        return;
+      }
+      if (data.reqId === reqId || waitFor === 'tfidf_ready') {
+        clearTimeout(timeout);
+        worker.removeEventListener('message', onMsg as any);
+        resolve(data as T);
+      }
+    }
+    worker.addEventListener('message', onMsg as any);
+    worker.postMessage({ ...msg, reqId });
+  });
+}
 
 type Chunk = {
   id: string;
@@ -173,20 +216,74 @@ const Card: React.FC<{ title: string; icon: React.ReactNode; children: React.Rea
 };
 
 type Mode = 'local' | 'api';
+type RetrievalMode = 'tfidf' | 'semantic';
 
-const ResumeQA: React.FC<{ mode?: Mode; provider?: Provider; onMissingKey?: () => void }> = ({ mode = 'local', provider = 'gemini', onMissingKey }) => {
+const ResumeQA: React.FC<{ mode?: Mode; provider?: Provider; retrieval?: RetrievalMode; onMissingKey?: () => void }> = ({ mode = 'local', provider = 'gemini', retrieval = 'tfidf', onMissingKey }) => {
   const [query, setQuery] = useState('What are your top cybersecurity achievements?');
   const [answer, setAnswer] = useState<string>('');
   const [sources, setSources] = useState<{ section: string; text: string; score: number }[]>([]);
   const [loading, setLoading] = useState(false);
+  const [semanticReady, setSemanticReady] = useState(false);
+  const [semanticBuilding, setSemanticBuilding] = useState(false);
 
   const dataset = useMemo(() => extractPortfolioChunks(), []);
-  const index = useMemo(() => buildTfidfIndex(dataset), [dataset]);
+  const tfidfIndexRef = useRef<any | null>(null);
+
+  // Build TF-IDF in worker (non-blocking). Fallback: on-demand build in main if worker fails.
+  useEffect(() => {
+    if (!dataset.length) return;
+    (async () => {
+      try {
+        await postWorker({ type: 'tfidf_build', chunks: dataset.map((c) => c.text) }, 'tfidf_ready');
+      } catch {
+        // fallback lazily when/if needed
+        tfidfIndexRef.current = null;
+      }
+    })();
+  }, [dataset]);
+  const semanticIndexRef = useRef<any | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    if (retrieval === 'semantic' && !semanticIndexRef.current && dataset.length) {
+      setSemanticBuilding(true);
+      buildSemanticIndex(dataset)
+        .then((idx) => {
+          if (!cancelled) {
+            semanticIndexRef.current = idx;
+            setSemanticReady(true);
+          }
+        })
+        .finally(() => !cancelled && setSemanticBuilding(false));
+    }
+    return () => {
+      cancelled = true;
+    };
+  }, [retrieval, dataset]);
 
   const run = useCallback(async () => {
     setLoading(true);
     try {
-      const top = index.topK(query, 4);
+      let top: { chunk: Chunk; score: number }[] = [] as any;
+      if (retrieval === 'semantic') {
+        if (!semanticIndexRef.current) {
+          setAnswer('Building semantic index… please try again in a moment.');
+          return;
+        }
+        top = await semanticIndexRef.current.topK(query, 4);
+      } else {
+        // Prefer worker; fallback to main-thread TF-IDF if worker unavailable
+        try {
+          const res: any = await postWorker({ type: 'tfidf_topk', query, k: 4 }, 'tfidf_topk_result');
+          const items = (res?.items || []) as { index: number; score: number }[];
+          top = items.map((it) => ({ chunk: dataset[it.index], score: it.score }));
+        } catch {
+          if (!tfidfIndexRef.current) {
+            tfidfIndexRef.current = buildTfidfIndex(dataset);
+          }
+          top = tfidfIndexRef.current.topK(query, 4);
+        }
+      }
       setSources(top.map((x) => ({ section: x.chunk.section, text: x.chunk.text, score: x.score })));
 
       if (mode === 'api') {
@@ -199,8 +296,14 @@ const ResumeQA: React.FC<{ mode?: Mode; provider?: Provider; onMissingKey?: () =
         const context = top.map((x, i) => `[${i + 1} | ${x.chunk.section}] ${x.chunk.text}`).join('\n');
         const system = 'You are a concise executive AI assistant. Answer clearly and tie responses to resume context. If unsure, say you need more info.';
         const prompt = `Question: ${query}\n\nUse the resume context below to answer. Cite sections inline when relevant.\n\nContext:\n${context}`;
-        const apiAnswer = await callProvider({ provider, apiKey: key, prompt, system });
-        setAnswer(apiAnswer.trim());
+        // Stream if supported
+        if (provider === 'gemini') {
+          const apiAnswer = await callProvider({ provider, apiKey: key, prompt, system });
+          setAnswer(apiAnswer.trim());
+        } else {
+          setAnswer('');
+          await callProviderStream({ provider, apiKey: key, prompt, system, onToken: (t) => setAnswer((prev) => prev + t) });
+        }
       } else {
         const bullets = top.map((x) => `- ${x.chunk.text}`).join('\n');
         const draft = `Here are the most relevant points from my portfolio related to your question:\n\n${bullets}\n\nSummary: I have hands-on leadership in security governance, audits, and risk reduction with measurable outcomes. If you'd like specifics, ask about any section (e.g., SOX, NIST, Zero Trust, incident response).`;
@@ -209,7 +312,7 @@ const ResumeQA: React.FC<{ mode?: Mode; provider?: Provider; onMissingKey?: () =
     } finally {
       setLoading(false);
     }
-  }, [index, query]);
+  }, [retrieval, query, provider, dataset]);
 
   useEffect(() => {
     // Pre-run once after mount
@@ -235,9 +338,16 @@ const ResumeQA: React.FC<{ mode?: Mode; provider?: Provider; onMissingKey?: () =
         </button>
       </div>
 
-      {answer && (
-        <div className="mt-4">
-          <div className="prose prose-invert max-w-none text-slate-200 whitespace-pre-wrap">{answer}</div>
+      {loading ? (
+        <div className="text-slate-300">Thinking…</div>
+      ) : (
+        <div>
+          {retrieval === 'semantic' && !semanticReady && (
+            <div className="text-xs text-slate-400 mb-2">Semantic retrieval (embeddings) will load on first use…</div>
+          )}
+          {answer && (
+            <div className="text-slate-200 whitespace-pre-wrap">{answer}</div>
+          )}
           {sources.length > 0 && (
             <div className="mt-3">
               <div className="text-sm text-slate-400 mb-1">Top sources:</div>
@@ -264,11 +374,19 @@ const CSVInsights: React.FC = () => {
 
   const sampleCSV = `team,incidents,resolution_hours,category\nNetwork,42,3,Connectivity\nSecurity,5,12,Phishing\nSecurity,1,28,Ransomware\nHelpdesk,120,1,Password\nHelpdesk,10,6,Hardware\nCloud,8,9,Deployment\n`;
 
-  const handleText = (text: string) => {
-    const { headers, rows } = parseCSV(text);
-    setHeaders(headers);
-    setRows(rows);
-    setProfile(profileCSV(headers, rows));
+  const handleText = async (text: string) => {
+    try {
+      const res: any = await postWorker({ type: 'csv_parse', text }, 'csv_result');
+      setHeaders(res.headers);
+      setRows(res.rows);
+      setProfile(res.profile);
+    } catch {
+      // Fallback to main thread if worker not available
+      const { headers, rows } = parseCSV(text);
+      setHeaders(headers);
+      setRows(rows);
+      setProfile(profileCSV(headers, rows));
+    }
   };
 
   const onFile = async (f: File) => {
@@ -374,90 +492,11 @@ const CSVInsights: React.FC = () => {
   );
 };
 
-const VoiceQA: React.FC = () => {
-  const [listening, setListening] = useState(false);
-  const [transcript, setTranscript] = useState('');
-  const [response, setResponse] = useState('');
-  const recognitionRef = useRef<any>(null);
-
-  const dataset = useMemo(() => extractPortfolioChunks(), []);
-  const index = useMemo(() => buildTfidfIndex(dataset), [dataset]);
-
-  const speak = (text: string) => {
-    if ('speechSynthesis' in window) {
-      const utt = new SpeechSynthesisUtterance(text);
-      utt.rate = 1.05;
-      window.speechSynthesis.speak(utt);
-    }
-  };
-
-  const process = (q: string) => {
-    if (!q.trim()) return;
-    const top = index.topK(q, 3);
-    const bullets = top.map((x) => x.chunk.text).join(' ');
-    const ans = `From my portfolio: ${bullets}`;
-    setResponse(ans);
-    speak(ans);
-  };
-
-  const start = () => {
-    const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
-    if (!SpeechRecognition) {
-      alert('Speech Recognition is not supported in this browser.');
-      return;
-    }
-    const rec = new SpeechRecognition();
-    rec.lang = 'en-US';
-    rec.interimResults = false;
-    rec.maxAlternatives = 1;
-    rec.onresult = (e: any) => {
-      const text = e.results[0][0].transcript;
-      setTranscript(text);
-      process(text);
-    };
-    rec.onend = () => setListening(false);
-    rec.start();
-    recognitionRef.current = rec;
-    setListening(true);
-  };
-
-  const stop = () => {
-    recognitionRef.current?.stop?.();
-    setListening(false);
-  };
-
-  const supported = typeof window !== 'undefined' && (('SpeechRecognition' in window) || ('webkitSpeechRecognition' in window));
-
-  return (
-    <div>
-      <div className="flex items-center gap-2">
-        <button
-          onClick={listening ? stop : start}
-          className={`px-4 py-2 rounded-lg text-white ${listening ? 'bg-primary-700' : 'bg-primary-600 hover:bg-primary-700'}`}
-        >
-          {listening ? (
-            <span className="inline-flex items-center"><MicOff size={16} className="mr-2"/> Stop</span>
-          ) : (
-            <span className="inline-flex items-center"><Mic size={16} className="mr-2"/> Ask by Voice</span>
-          )}
-        </button>
-        {!supported && <div className="text-sm text-slate-400">Speech APIs not supported in this browser.</div>}
-      </div>
-
-      {transcript && (
-        <div className="mt-3 text-slate-300"><span className="text-slate-400">You said:</span> {transcript}</div>
-      )}
-      {response && (
-        <div className="mt-2 text-slate-200">{response}</div>
-      )}
-    </div>
-  );
-};
-
 const AILab: React.FC = () => {
   const [openSettings, setOpenSettings] = useState(false);
   const [mode, setMode] = useState<Mode>('local');
   const [provider, setProvider] = useState<Provider>(getStoredProvider() || 'gemini');
+  const [retrieval, setRetrieval] = useState<RetrievalMode>('tfidf');
 
   return (
     <section id="ai-lab" className="py-16 container-padding">
@@ -505,13 +544,17 @@ const AILab: React.FC = () => {
 
       <div className="grid md:grid-cols-2 gap-6">
         <Card title="Resume Q&A (RAG)" icon={<Bot size={18}/> }>
-          <ResumeQA mode={mode} provider={provider} onMissingKey={() => setOpenSettings(true)} />
+          <div className="mb-2 flex items-center gap-2">
+            <span className="text-xs text-slate-400">Retrieval:</span>
+            <div className="flex items-center bg-slate-900 border border-slate-700 rounded-lg overflow-hidden">
+              <button onClick={() => setRetrieval('tfidf')} className={`px-2 py-1 text-xs ${retrieval === 'tfidf' ? 'bg-primary-600 text-white' : 'text-slate-300'}`}>TF‑IDF</button>
+              <button onClick={() => setRetrieval('semantic')} className={`px-2 py-1 text-xs border-l border-slate-700 ${retrieval === 'semantic' ? 'bg-primary-600 text-white' : 'text-slate-300'}`}>Semantic (beta)</button>
+            </div>
+          </div>
+          <ResumeQA mode={mode} provider={provider} retrieval={retrieval} onMissingKey={() => setOpenSettings(true)} />
         </Card>
         <Card title="CSV Insights Analyzer" icon={<Database size={18}/> }>
           <CSVInsights/>
-        </Card>
-        <Card title="Voice Q&A" icon={<Mic size={18}/> }>
-          <VoiceQA/>
         </Card>
       </div>
 

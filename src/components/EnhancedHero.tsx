@@ -247,7 +247,7 @@ const EnhancedHero: React.FC = () => {
                       <meta charset="utf-8" />
                       <title>Board One-Pager - DJ Cline</title>
                       <style>
-                        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 36px; color: #0f172a; }
+                        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 36px; color: #0f172a; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
                         .title { font-size: 26px; font-weight: 800; color: #0f172a; margin: 0 0 4px; }
                         .subtitle { color: #334155; font-size: 14px; margin: 0 0 14px; }
                         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
@@ -262,7 +262,24 @@ const EnhancedHero: React.FC = () => {
                         .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
                         .pill { display:inline-block; border-radius: 9999px; padding: 2px 8px; font-size: 11px; border:1px solid #e2e8f0; background:#f8fafc; margin-right:6px; }
                         .footer { margin-top: 12px; color: #64748b; font-size: 11px; text-align:right; }
-                        @media print { body { margin: 18mm; } }
+                        @page { size: Letter landscape; margin: 0.5in; }
+                        @media print {
+                          html, body { width: auto; height: auto; }
+                          body { margin: 0 !important; padding: 0 !important; overflow: hidden; }
+                          .grid, .row { gap: 12px; }
+                          .section { padding: 10px; break-inside: avoid; page-break-inside: avoid; }
+                          .title { font-size: 24px; }
+                          .subtitle { font-size: 12px; margin-bottom: 10px; }
+                          .h3 { font-size: 12px; margin-bottom: 6px; }
+                          .kpi-grid { gap: 8px; }
+                          .kpi { padding: 8px; }
+                          .kpi .label { font-size: 10px; }
+                          .kpi .value { font-size: 16px; }
+                          ul { padding-left: 16px; }
+                          li { margin: 3px 0; font-size: 12px; }
+                          .pill { font-size: 10px; padding: 2px 6px; }
+                          .footer { margin-top: 4px; margin-bottom: 0; padding-bottom: 0; font-size: 10px; page-break-after: avoid; }
+                        }
                       </style>
                     </head>
                     <body>
