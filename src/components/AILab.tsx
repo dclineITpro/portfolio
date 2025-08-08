@@ -270,18 +270,18 @@ const ResumeQA: React.FC<{ mode?: Mode; provider?: Provider; retrieval?: Retriev
           setAnswer('Building semantic index… please try again in a moment.');
           return;
         }
-        top = await semanticIndexRef.current.topK(query, 4);
+        top = await semanticIndexRef.current.topK(query, 3);
       } else {
         // Prefer worker; fallback to main-thread TF-IDF if worker unavailable
         try {
-          const res: any = await postWorker({ type: 'tfidf_topk', query, k: 4 }, 'tfidf_topk_result');
+          const res: any = await postWorker({ type: 'tfidf_topk', query, k: 3 }, 'tfidf_topk_result');
           const items = (res?.items || []) as { index: number; score: number }[];
           top = items.map((it) => ({ chunk: dataset[it.index], score: it.score }));
         } catch {
           if (!tfidfIndexRef.current) {
             tfidfIndexRef.current = buildTfidfIndex(dataset);
           }
-          top = tfidfIndexRef.current.topK(query, 4);
+          top = tfidfIndexRef.current.topK(query, 3);
         }
       }
       setSources(top.map((x) => ({ section: x.chunk.section, text: x.chunk.text, score: x.score })));
@@ -294,8 +294,8 @@ const ResumeQA: React.FC<{ mode?: Mode; provider?: Provider; retrieval?: Retriev
           return;
         }
         const context = top.map((x, i) => `[${i + 1} | ${x.chunk.section}] ${x.chunk.text}`).join('\n');
-        const system = 'You are a concise executive AI assistant. Answer clearly and tie responses to resume context. If unsure, say you need more info.';
-        const prompt = `Question: ${query}\n\nUse the resume context below to answer. Cite sections inline when relevant.\n\nContext:\n${context}`;
+        const system = 'You are a concise executive AI assistant. Keep answers under 60 words. Prefer 2 short sentences; if bullets are clearer, use up to 3 very short bullets. No preamble.';
+        const prompt = `Question: ${query}\n\nUse the resume context below to answer in under 60 words. Cite sections inline briefly if useful.\n\nContext:\n${context}`;
         // Stream if supported
         if (provider === 'gemini') {
           const apiAnswer = await callProvider({ provider, apiKey: key, prompt, system });
@@ -305,8 +305,9 @@ const ResumeQA: React.FC<{ mode?: Mode; provider?: Provider; retrieval?: Retriev
           await callProviderStream({ provider, apiKey: key, prompt, system, onToken: (t) => setAnswer((prev) => prev + t) });
         }
       } else {
-        const bullets = top.map((x) => `- ${x.chunk.text}`).join('\n');
-        const draft = `Here are the most relevant points from my portfolio related to your question:\n\n${bullets}\n\nSummary: I have hands-on leadership in security governance, audits, and risk reduction with measurable outcomes. If you'd like specifics, ask about any section (e.g., SOX, NIST, Zero Trust, incident response).`;
+        const bullets = top.slice(0, 2).map((x) => `- ${x.chunk.text}`).join('\n');
+        const summary = 'Summary: Focused, measurable outcomes in security governance and transformation; ask for specifics (SOX, NIST, Zero Trust) if needed.';
+        const draft = `${bullets}\n\n${summary}`;
         setAnswer(draft);
       }
     } finally {

@@ -37,8 +37,8 @@ export async function callProviderStream(params: {
       ...(system ? [{ role: 'system', content: system }] : []),
       { role: 'user', content: prompt },
     ],
-    temperature: 0.7,
-    max_tokens: 512,
+    temperature: 0.5,
+    max_tokens: 160,
     stream: true,
   } as any;
 
@@ -119,7 +119,7 @@ export async function callProvider(params: {
           parts: [{ text: (system ? `System: ${system}\n\n` : '') + prompt }],
         },
       ],
-      generationConfig: { temperature: 0.7, maxOutputTokens: 512 },
+      generationConfig: { temperature: 0.5, maxOutputTokens: 160 },
     };
 
     const res = await fetch(endpoint, {
@@ -142,8 +142,8 @@ export async function callProvider(params: {
         ...(system ? [{ role: 'system', content: system }] : []),
         { role: 'user', content: prompt },
       ],
-      temperature: 0.7,
-      max_tokens: 512,
+      temperature: 0.5,
+      max_tokens: 160,
     };
     const res = await fetch(endpoint, {
       method: 'POST',
@@ -168,8 +168,8 @@ export async function callProvider(params: {
         ...(system ? [{ role: 'system', content: system }] : []),
         { role: 'user', content: prompt },
       ],
-      temperature: 0.7,
-      max_tokens: 512,
+      temperature: 0.5,
+      max_tokens: 160,
     };
     const res = await fetch(endpoint, {
       method: 'POST',
