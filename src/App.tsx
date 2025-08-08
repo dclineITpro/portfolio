@@ -12,6 +12,7 @@ import ScrollAnimationWrapper from './components/ScrollAnimationWrapper';
 import CertificationsFrameworks from './components/CertificationsFrameworks';
 import AuditOutcomes from './components/AuditOutcomes';
 import SkillsMatrix from './components/SkillsMatrix';
+import AILab from './components/AILab';
 
 function App() {
   return (
@@ -37,6 +38,9 @@ function App() {
         </ScrollAnimationWrapper>
         <ScrollAnimationWrapper>
           <SkillsMatrix />
+        </ScrollAnimationWrapper>
+        <ScrollAnimationWrapper>
+          <AILab />
         </ScrollAnimationWrapper>
         <ScrollAnimationWrapper>
           <Achievements />
