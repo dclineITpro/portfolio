@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Bot, Upload, Mic, MicOff, Sparkles, FileText, Database } from 'lucide-react';
+import { Bot, Upload, Mic, MicOff, Sparkles, Database, Settings as SettingsIcon } from 'lucide-react';
+import SettingsModal from './SettingsModal';
+import { Provider, getStoredKey, getStoredProvider, callProvider } from '../utils/aiProviders';
 
 // ---- Simple Local RAG (TF-IDF) utilities ----
 
@@ -170,7 +172,9 @@ const Card: React.FC<{ title: string; icon: React.ReactNode; children: React.Rea
   );
 };
 
-const ResumeQA: React.FC = () => {
+type Mode = 'local' | 'api';
+
+const ResumeQA: React.FC<{ mode?: Mode; provider?: Provider; onMissingKey?: () => void }> = ({ mode = 'local', provider = 'gemini', onMissingKey }) => {
   const [query, setQuery] = useState('What are your top cybersecurity achievements?');
   const [answer, setAnswer] = useState<string>('');
   const [sources, setSources] = useState<{ section: string; text: string; score: number }[]>([]);
@@ -184,9 +188,24 @@ const ResumeQA: React.FC = () => {
     try {
       const top = index.topK(query, 4);
       setSources(top.map((x) => ({ section: x.chunk.section, text: x.chunk.text, score: x.score })));
-      const bullets = top.map((x) => `- ${x.chunk.text}`).join('\n');
-      const draft = `Here are the most relevant points from my portfolio related to your question:\n\n${bullets}\n\nSummary: I have hands-on leadership in security governance, audits, and risk reduction with measurable outcomes. If you'd like specifics, ask about any section (e.g., SOX, NIST, Zero Trust, incident response).`;
-      setAnswer(draft);
+
+      if (mode === 'api') {
+        const key = getStoredKey(provider);
+        if (!key) {
+          setAnswer('No API key found for selected provider. Open Settings to add a key.');
+          onMissingKey?.();
+          return;
+        }
+        const context = top.map((x, i) => `[${i + 1} | ${x.chunk.section}] ${x.chunk.text}`).join('\n');
+        const system = 'You are a concise executive AI assistant. Answer clearly and tie responses to resume context. If unsure, say you need more info.';
+        const prompt = `Question: ${query}\n\nUse the resume context below to answer. Cite sections inline when relevant.\n\nContext:\n${context}`;
+        const apiAnswer = await callProvider({ provider, apiKey: key, prompt, system });
+        setAnswer(apiAnswer.trim());
+      } else {
+        const bullets = top.map((x) => `- ${x.chunk.text}`).join('\n');
+        const draft = `Here are the most relevant points from my portfolio related to your question:\n\n${bullets}\n\nSummary: I have hands-on leadership in security governance, audits, and risk reduction with measurable outcomes. If you'd like specifics, ask about any section (e.g., SOX, NIST, Zero Trust, incident response).`;
+        setAnswer(draft);
+      }
     } finally {
       setLoading(false);
     }
@@ -436,19 +455,57 @@ const VoiceQA: React.FC = () => {
 };
 
 const AILab: React.FC = () => {
+  const [openSettings, setOpenSettings] = useState(false);
+  const [mode, setMode] = useState<Mode>('local');
+  const [provider, setProvider] = useState<Provider>(getStoredProvider() || 'gemini');
+
   return (
     <section id="ai-lab" className="py-16 container-padding">
-      <div className="mb-8">
+      <div className="mb-6">
         <div className="inline-flex items-center px-3 py-1 rounded-full bg-primary-600/20 text-primary-300 text-xs font-semibold mb-2">
-          <Sparkles size={14} className="mr-1"/> AI Lab (Client‑side, No API Key)
+          <Sparkles size={14} className="mr-1"/> AI Lab (Local & Optional API)
         </div>
-        <h2 className="text-3xl font-bold text-white">Interactive AI Demos</h2>
-        <p className="mt-2 text-slate-300 max-w-3xl">These demos run entirely in your browser. No server, no API key. They showcase retrieval and analytics patterns commonly used in AI systems.</p>
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+          <div>
+            <h2 className="text-3xl font-bold text-white">Interactive AI Demos</h2>
+            <p className="mt-1 text-slate-300 max-w-3xl">Runs locally by default. You can also use your own API key (stored in this browser) to enhance answers.</p>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="flex items-center bg-slate-900 border border-slate-700 rounded-lg overflow-hidden">
+              <button
+                onClick={() => setMode('local')}
+                className={`px-3 py-2 text-sm ${mode === 'local' ? 'bg-primary-600 text-white' : 'text-slate-300'}`}
+              >Local</button>
+              <button
+                onClick={() => setMode('api')}
+                className={`px-3 py-2 text-sm border-l border-slate-700 ${mode === 'api' ? 'bg-primary-600 text-white' : 'text-slate-300'}`}
+              >API</button>
+            </div>
+            {mode === 'api' && (
+              <select
+                className="bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-slate-200 text-sm"
+                value={provider}
+                onChange={(e) => setProvider(e.target.value as Provider)}
+              >
+                <option value="gemini">Gemini</option>
+                <option value="groq">Groq</option>
+                <option value="openrouter">OpenRouter</option>
+              </select>
+            )}
+            <button
+              className="inline-flex items-center px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-slate-200 text-sm"
+              onClick={() => setOpenSettings(true)}
+              title="API Keys & default provider"
+            >
+              <SettingsIcon size={16} className="mr-1"/> Settings
+            </button>
+          </div>
+        </div>
       </div>
 
       <div className="grid md:grid-cols-2 gap-6">
-        <Card title="Resume Q&A (Local RAG)" icon={<Bot size={18}/> }>
-          <ResumeQA/>
+        <Card title="Resume Q&A (RAG)" icon={<Bot size={18}/> }>
+          <ResumeQA mode={mode} provider={provider} onMissingKey={() => setOpenSettings(true)} />
         </Card>
         <Card title="CSV Insights Analyzer" icon={<Database size={18}/> }>
           <CSVInsights/>
@@ -457,6 +514,12 @@ const AILab: React.FC = () => {
           <VoiceQA/>
         </Card>
       </div>
+
+      <SettingsModal open={openSettings} onClose={() => setOpenSettings(false)} onSaved={() => {
+        // sync provider from saved default if user updated it
+        const p = getStoredProvider();
+        if (p) setProvider(p);
+      }} />
     </section>
   );
 };
