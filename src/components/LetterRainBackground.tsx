@@ -42,7 +42,7 @@ const LetterRainBackground: React.FC = () => {
     const minFPS = 24; // lower FPS for gentler motion and lower load
     const letterOpacity = 0.4; // medium visibility
     const speedPx = 0.75; // slower speed
-    const ACTIVATE_PROB = 0.0225; // +50% frequency: probability a new drop starts per column per frame
+    const ACTIVATE_PROB = 0.03375; // +50% more from 0.0225
 
     const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     const COLORS = ['#818cf8', '#6366f1', '#4f46e5', '#4338ca', '#3730a3']; // indigo family (balanced)

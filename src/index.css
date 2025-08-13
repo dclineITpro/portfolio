@@ -33,20 +33,8 @@
   body {
     font-family: 'Inter', sans-serif;
     line-height: 1.6;
-    /* Sitewide executive gradient background (with subtle vignette) */
-    background:
-      radial-gradient(1100px 760px at 50% 40%, transparent 0%, rgba(10,10,15,0.10) 60%, var(--exec-vignette) 100%),
-      linear-gradient(120deg, var(--exec-bg-1) 0%, var(--exec-bg-2) 50%, var(--exec-bg-1) 100%),
-      linear-gradient(200deg, rgba(24,18,67,0.18) 0%, rgba(8,9,13,0.18) 100%);
-    background-size:
-      auto,
-      300% 300%,
-      260% 260%;
-    background-position:
-      50% 40%,
-      0% 0%,
-      100% 0%;
-    animation: execGradientShift 60s ease-in-out infinite alternate;
+    /* Solid executive background (gradient removed) */
+    background: var(--exec-bg-1);
     color: #e2e8f0;
     overflow-x: hidden; /* avoid accidental horizontal scroll on mobile */
   }
