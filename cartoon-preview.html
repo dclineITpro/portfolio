@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cartoon Preview - DJ Cline</title>
+  <style>
+    :root { color-scheme: light dark; }
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 0; padding: 24px; background: #0f172a; color: #e2e8f0; }
+    .wrap { max-width: 1100px; margin: 0 auto; }
+    h1 { font-size: 20px; margin: 0 0 16px; color: #fff; }
+    p { color: #cbd5e1; margin: 0 0 16px; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .card { background: #0b1220; border: 1px solid #1f2937; border-radius: 12px; padding: 16px; }
+    .label { font-weight: 600; margin-bottom: 8px; color: #c7d2fe; }
+    img { width: 100%; height: auto; border-radius: 12px; display: block; }
+    .cartoon { filter: url(#cartoon); }
+    .note { font-size: 12px; color: #94a3b8; margin-top: 12px; }
+    .actions { margin-top: 16px; display: flex; gap: 8px; }
+    .btn { background: #4f46e5; color: #fff; border: 0; padding: 10px 14px; border-radius: 8px; cursor: pointer; font-weight: 600; }
+    .btn:hover { background: #4338ca; }
+  </style>
+</head>
+<body>
+  <svg width="0" height="0" style="position:absolute">
+    <defs>
+      <!-- Cartoon filter: mild blur, color posterize, edge outline multiply -->
+      <filter id="cartoon">
+        <!-- Slight blur to smooth skin/areas -->
+        <feGaussianBlur in="SourceGraphic" stdDeviation="0.5" result="blur" />
+        <!-- Posterize colors (reduce to discrete steps) -->
+        <feComponentTransfer in="blur" result="posterized" color-interpolation-filters="sRGB">
+          <feFuncR type="discrete" tableValues="0 0.25 0.5 0.75 1" />
+          <feFuncG type="discrete" tableValues="0 0.25 0.5 0.75 1" />
+          <feFuncB type="discrete" tableValues="0 0.25 0.5 0.75 1" />
+          <feFuncA type="table" tableValues="0 1" />
+        </feComponentTransfer>
+        <!-- Detect edges -->
+        <feConvolveMatrix in="blur" order="3" kernelMatrix="-1 -1 -1 -1 8 -1 -1 -1 -1" result="edges" />
+        <!-- Make edges black lines -->
+        <feColorMatrix in="edges" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="lines" />
+        <!-- Blend lines over posterized base -->
+        <feBlend in="posterized" in2="lines" mode="multiply" />
+      </filter>
+    </defs>
+  </svg>
+
+  <div class="wrap">
+    <h1>Cartoon Preview</h1>
+    <p>Left: original photo. Right: cartoonized (non-destructive preview). This doesn’t change your site photo.</p>
+    <div class="grid">
+      <div class="card">
+        <div class="label">Original</div>
+        <!-- Use local public asset; adjust path if needed -->
+        <img src="./dj.jpg" alt="Original DJ" />
+      </div>
+      <div class="card">
+        <div class="label">Cartoonized</div>
+        <img class="cartoon" src="./dj.jpg" alt="Cartoon DJ" />
+        <div class="note">If you like this look, I can export and replace the profile image (or keep both).</div>
+        <div class="actions">
+          <button class="btn" id="download">Download PNG</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Optional: render the filtered image to canvas and download as PNG
+    const btn = document.getElementById('download');
+    btn?.addEventListener('click', async () => {
+      const img = document.querySelector('img.cartoon');
+      if (!img || !img.complete) return;
+
+      // Draw image to canvas (note: CSS/SVG filter won't be baked in by drawImage)
+      // Use an offscreen SVG with filter applied and rasterize via blob URL
+      const w = img.naturalWidth;
+      const h = img.naturalHeight;
+      const svg = `\n<svg xmlns='http://www.w3.org/2000/svg' width='${w}' height='${h}'>\n  <defs>\n    <filter id='cartoon'>\n      <feGaussianBlur in='SourceGraphic' stdDeviation='0.5' result='blur'/>\n      <feComponentTransfer in='blur' result='posterized' color-interpolation-filters='sRGB'>\n        <feFuncR type='discrete' tableValues='0 0.25 0.5 0.75 1'/>\n        <feFuncG type='discrete' tableValues='0 0.25 0.5 0.75 1'/>\n        <feFuncB type='discrete' tableValues='0 0.25 0.5 0.75 1'/>\n        <feFuncA type='table' tableValues='0 1'/>\n      </feComponentTransfer>\n      <feConvolveMatrix in='blur' order='3' kernelMatrix='-1 -1 -1 -1 8 -1 -1 -1 -1' result='edges'/>\n      <feColorMatrix in='edges' type='matrix' values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0' result='lines'/>\n      <feBlend in='posterized' in2='lines' mode='multiply'/>\n    </filter>\n  </defs>\n  <image x='0' y='0' width='${w}' height='${h}' xlink:href='${img.src}' href='${img.src}' style='filter:url(#cartoon)'/>\n</svg>`;
+
+      const blob = new Blob([svg], { type: 'image/svg+xml;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+
+      const raster = new Image();
+      raster.crossOrigin = 'anonymous';
+      raster.onload = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(raster, 0, 0, w, h);
+        canvas.toBlob((png) => {
+          if (!png) return;
+          const a = document.createElement('a');
+          a.href = URL.createObjectURL(png);
+          a.download = 'dj-cartoon.png';
+          a.click();
+          URL.revokeObjectURL(a.href);
+          URL.revokeObjectURL(url);
+        }, 'image/png');
+      };
+      raster.src = url;
+    });
+  </script>
+</body>
+</html>
