@@ -39,17 +39,20 @@ const LetterRainBackground: React.FC = () => {
 
     // Visual params (tuned for subtle professional effect)
     const fontSize = 16; // logical pixels
-    const trailFade = 0.05; // slightly faster fade -> shorter, subtler trails
     const minFPS = 24; // lower FPS for gentler motion and lower load
     const letterOpacity = 0.4; // medium visibility
     const speedPx = 0.75; // slower speed
+    const ACTIVATE_PROB = 0.0225; // +50% frequency: probability a new drop starts per column per frame
 
     const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     const COLORS = ['#818cf8', '#6366f1', '#4f46e5', '#4338ca', '#3730a3']; // indigo family (balanced)
     const HEAD_COLOR = '#bfc6ff'; // toned head color
+    const MAX_TRAIL_UNITS = 18; // limit how long a trail persists behind the head
+    const COOLDOWN_FRAMES = 48; // frames a column waits before it can spawn again (~2s at 24fps)
 
     let columns = 0;
     let drops: number[] = [];
+    let cooldowns: number[] = [];
 
     function resize() {
       const vw = window.innerWidth;
@@ -66,8 +69,10 @@ const LetterRainBackground: React.FC = () => {
       ctxLocal.font = `${scaledFont}px monospace`;
       ctxLocal.textBaseline = 'top';
 
+      // Use normal column spacing; control frequency via activation probability
       columns = Math.floor(width / (scaledFont));
-      drops = new Array(columns).fill(0).map(() => Math.floor(Math.random() * (height / scaledFont)));
+      drops = new Array(columns).fill(-1); // -1 indicates inactive column
+      cooldowns = new Array(columns).fill(0);
       ctxLocal.clearRect(0, 0, width, height);
     }
 
@@ -76,40 +81,73 @@ const LetterRainBackground: React.FC = () => {
 
     let last = 0;
     const frameInterval = 1000 / minFPS;
+    let frameCount = 0;
 
     function draw(ts: number) {
       rafRef.current = requestAnimationFrame(draw);
       if (ts - last < frameInterval) return;
       last = ts;
+      frameCount++;
 
-      // Fade the canvas to create trails that blend with the site gradient
+      // Clear the entire canvas each frame to avoid any residual pixels
       const ctxLocal = ctx as CanvasRenderingContext2D;
-      ctxLocal.fillStyle = `rgba(8,9,13,${trailFade})`;
-      ctxLocal.fillRect(0, 0, width, height);
-
+      ctxLocal.globalCompositeOperation = 'source-over';
+      ctxLocal.globalAlpha = 1;
+      ctxLocal.clearRect(0, 0, width, height);
       ctxLocal.globalAlpha = letterOpacity;
 
       const scaledFont = parseInt(ctxLocal.font, 10) || Math.round(fontSize * DPR);
       const stepY = Math.max(12, scaledFont) * speedPx;
 
+      let anyActive = false;
+      let activeCount = 0;
       for (let i = 0; i < columns; i++) {
-        const char = CHARS.charAt((Math.random() * CHARS.length) | 0);
-        const color = COLORS[i % COLORS.length];
-        // Head glyph for visibility (less frequent, less bright)
-        ctxLocal.globalAlpha = 0.7;
-        ctxLocal.fillStyle = (i % 5 === 0) ? HEAD_COLOR : color;
+        // Activate inactive columns with a small probability
+        if (drops[i] < 0) {
+          if (cooldowns[i] > 0) {
+            cooldowns[i] -= 1;
+            continue;
+          }
+          if (Math.random() < ACTIVATE_PROB) {
+            drops[i] = -Math.random() * 10; // start slightly above the top for a nicer spawn
+          } else {
+            continue; // remain inactive this frame
+          }
+        }
+
+        // Explicit short trail rendering with per-frame clear, avoids residual build-up
+        const baseColor = COLORS[i % COLORS.length];
         const x = i * scaledFont;
-        const y = drops[i] * scaledFont;
-        ctxLocal.fillText(char, x, y);
+        const yUnits = drops[i];
+        const y = yUnits * scaledFont;
+        const xi = Math.round(x);
+        const yi = Math.round(y);
+
+        for (let t = Math.max(0, -Math.floor(yUnits)); t <= MAX_TRAIL_UNITS; t++) {
+          const ty = yi - t * scaledFont;
+          if (ty < 0) break;
+          const isHead = t === 0;
+          const alpha = isHead ? 0.7 : Math.max(0, letterOpacity * (1 - t / (MAX_TRAIL_UNITS + 1)));
+          ctxLocal.globalAlpha = alpha;
+          ctxLocal.fillStyle = isHead && (i % 5 === 0) ? HEAD_COLOR : baseColor;
+          const char = CHARS.charAt((Math.random() * CHARS.length) | 0);
+          ctxLocal.fillText(char, xi, Math.round(ty));
+        }
         ctxLocal.globalAlpha = letterOpacity;
 
-        // reset drop randomly after passing bottom to vary trail lengths
-        if (y > height && Math.random() > 0.975) {
-          drops[i] = 0;
+        // advance and deactivate when off-screen
+        const nextUnits = yUnits + (stepY / scaledFont);
+        if (nextUnits * scaledFont > height) {
+          drops[i] = -1; // deactivate to reduce overall frequency
+          cooldowns[i] = COOLDOWN_FRAMES; // wait before allowing a new drop on this column
         } else {
-          drops[i] += stepY / scaledFont;
+          drops[i] = nextUnits;
+          anyActive = true;
+          activeCount++;
         }
       }
+
+      // No residual clearing needed beyond per-frame clear + explicit trails
 
       ctxLocal.globalAlpha = 1;
     }
@@ -133,8 +171,20 @@ const LetterRainBackground: React.FC = () => {
       ctxLocal.globalAlpha = 1;
     }
 
+    // Pause animation when tab is hidden to save resources
+    const onVisibility = () => {
+      if (document.hidden) {
+        if (rafRef.current) cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      } else if (!prefersReduced && !rafRef.current) {
+        rafRef.current = requestAnimationFrame(draw);
+      }
+    };
+    document.addEventListener('visibilitychange', onVisibility);
+
     return () => {
       window.removeEventListener('resize', resize);
+      document.removeEventListener('visibilitychange', onVisibility);
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
   }, [enabled]);
