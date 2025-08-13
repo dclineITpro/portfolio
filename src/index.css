@@ -18,6 +18,11 @@
   --cyber-blue: #4f46e5;  /* indigo-600 */
   --cyber-purple: #3730a3; /* indigo-800 */
   --cyber-orange: #f59e0b; /* amber-500, used sparingly */
+  
+  /* Executive background gradient tokens */
+  --exec-bg-1: #08090d; /* near black with blue tint */
+  --exec-bg-2: #181243; /* deeper indigo for clearer contrast */
+  --exec-vignette: rgba(10, 10, 15, 0.35); /* lighter so gradient is more visible */
 }
 
 @layer base {
@@ -28,8 +33,35 @@
   body {
     font-family: 'Inter', sans-serif;
     line-height: 1.6;
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    /* Sitewide executive gradient background (with subtle vignette) */
+    background:
+      radial-gradient(1100px 760px at 50% 40%, transparent 0%, rgba(10,10,15,0.10) 60%, var(--exec-vignette) 100%),
+      linear-gradient(120deg, var(--exec-bg-1) 0%, var(--exec-bg-2) 50%, var(--exec-bg-1) 100%),
+      linear-gradient(200deg, rgba(24,18,67,0.18) 0%, rgba(8,9,13,0.18) 100%);
+    background-size:
+      auto,
+      300% 300%,
+      260% 260%;
+    background-position:
+      50% 40%,
+      0% 0%,
+      100% 0%;
+    animation: execGradientShift 60s ease-in-out infinite alternate;
     color: #e2e8f0;
+    overflow-x: hidden; /* avoid accidental horizontal scroll on mobile */
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    body { animation: none; }
+  }
+
+  /* Disable background animation on small screens for performance and comfort */
+  @media (max-width: 767px) {
+    body { animation: none; }
+  }
+  /* Also disable on coarse pointers (common on touch devices) */
+  @media (hover: none) and (pointer: coarse) {
+    body { animation: none; }
   }
 }
 
@@ -248,6 +280,13 @@
     100% {
       opacity: 0.3;
     }
+  }
+
+  /* Slow, subtle gradient shift for the executive background */
+  @keyframes execGradientShift {
+    0%   { background-position: 50% 40%, 0%   0%,   100% 0%; }
+    50%  { background-position: 50% 40%, 100% 50%, 0%   50%; }
+    100% { background-position: 50% 40%, 0%  100%, 100% 100%; }
   }
   
   .hero-glow {

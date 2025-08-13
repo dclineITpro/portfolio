@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
 import Highlights from './Highlights';
-import ParticlesBackground from './ParticlesBackground';
+ 
 import PDFResume from './PDFResume';
 import { ChevronDown, Mail, Linkedin, Cpu, Network, Shield, Zap, Download, FileText } from 'lucide-react';
 
@@ -17,7 +17,7 @@ const EnhancedHero: React.FC = () => {
 
   return (
     <section id="home" className="relative min-h-screen flex items-start justify-center pt-24 md:pt-24">
-      <ParticlesBackground />
+      
 
       {/* Main Content */}
       <div className="relative z-10 container-padding text-center">

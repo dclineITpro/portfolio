@@ -12,10 +12,13 @@ import CertificationsFrameworks from './components/CertificationsFrameworks';
 import AuditOutcomes from './components/AuditOutcomes';
 import SkillsMatrix from './components/SkillsMatrix';
 // AI Lab removed
+import LetterRainBackground from './components/LetterRainBackground';
 
 function App() {
   return (
     <div className="min-h-screen relative">
+      {/* Indigo/Purple Letter Rain Background */}
+      <LetterRainBackground />
       <div className="relative z-10">
         <Header />
         <EnhancedHero />
