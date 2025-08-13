@@ -22,6 +22,9 @@ The experimental AI Lab section and related provider integrations have been remo
 - Live site: https://dclineitpro.github.io/portfolio/
 - Tech stack: React + Vite + TypeScript + Tailwind CSS
 - Recent change: AI Lab removed (UI, code, and docs) to simplify the site
+- Background: Executive gradient + indigo letter rain
+  - Honors reduced motion (animation disabled when enabled in OS/browser)
+  - Disabled on mobile (<768px) for performance and comfort
 
 ## How to Continue Later
 
@@ -70,6 +73,7 @@ git push
 
 - `src/App.tsx` – page composition (order of sections)
 - `src/components/*` – individual sections and UI building blocks
+- `src/components/LetterRainBackground.tsx` – indigo letter rain background (desktop only)
 - `src/index.css` – Tailwind base and custom styles
 - `public/` – static assets (e.g., profile image)
 
