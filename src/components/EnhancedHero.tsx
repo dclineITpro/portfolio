@@ -133,7 +133,7 @@ const EnhancedHero: React.FC = () => {
                           <div class="experience-duration">September 2015 – Present</div>
                           <ul>
                             <li>Lead IT operations for a 24/7 international manufacturer, overseeing infrastructure, support, compliance, and security for teams across the US, Mexico, and Asia</li>
-                            <li>Spearheaded transition from AS/400 to SAP ERP and implemented Microsoft 365, enhancing operational efficiency by 85%</li>
+                            <li>Spearheaded the technical infrastructure transition from AS/400 to SAP and implemented Microsoft 365, enhancing operational efficiency by 85%</li>
                             <li>Developed and enforced a comprehensive security program from the ground up, reducing vulnerabilities through policy standardization and advanced tools</li>
                             <li>Collaborate with global stakeholders to deliver scalable solutions, including SDWAN/SASE and cloud infrastructure upgrades</li>
                             <li>AI expert utilizing locally hosted AI to both customize the technology and keep proprietary data under control</li>

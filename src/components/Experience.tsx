@@ -10,7 +10,7 @@ const Experience: React.FC = () => {
       period: "September 2015 – Present",
       achievements: [
         "Lead IT operations for a 24/7 international manufacturer, overseeing infrastructure, support, compliance, and security for teams across the US, Mexico, and Asia",
-        "Spearheaded transition from AS/400 to SAP ERP and implemented Microsoft 365, enhancing operational efficiency by 85%",
+        "Spearheaded the technical infrastructure transition from AS/400 to SAP and implemented Microsoft 365, enhancing operational efficiency by 85%",
         "Developed and enforced a comprehensive security program from the ground up, reducing vulnerabilities through policy standardization and advanced tools",
         "Collaborate with global stakeholders to deliver scalable solutions, including SDWAN/SASE and cloud infrastructure upgrades",
         "AI expert utilizing locally hosted AI to both customize the technology and keep proprietary data under control"
