@@ -53,6 +53,11 @@ const LetterRainBackground: React.FC = () => {
     let columns = 0;
     let drops: number[] = [];
     let cooldowns: number[] = [];
+    let speeds: number[] = []; // per-active-drop speed multipliers
+
+    // Generate a subtle speed multiplier for each new drop
+    // Range ~0.6x to ~1.5x of the base speed for natural variety
+    const randomSpeed = () => 0.6 + Math.random() * 0.9;
 
     function resize() {
       const vw = window.innerWidth;
@@ -73,6 +78,7 @@ const LetterRainBackground: React.FC = () => {
       columns = Math.floor(width / (scaledFont));
       drops = new Array(columns).fill(-1); // -1 indicates inactive column
       cooldowns = new Array(columns).fill(0);
+      speeds = new Array(columns).fill(1);
       ctxLocal.clearRect(0, 0, width, height);
     }
 
@@ -97,7 +103,7 @@ const LetterRainBackground: React.FC = () => {
       ctxLocal.globalAlpha = letterOpacity;
 
       const scaledFont = parseInt(ctxLocal.font, 10) || Math.round(fontSize * DPR);
-      const stepY = Math.max(12, scaledFont) * speedPx;
+      const stepY = Math.max(12, scaledFont) * speedPx; // base step per frame
 
       let anyActive = false;
       let activeCount = 0;
@@ -110,6 +116,7 @@ const LetterRainBackground: React.FC = () => {
           }
           if (Math.random() < ACTIVATE_PROB) {
             drops[i] = -Math.random() * 10; // start slightly above the top for a nicer spawn
+            speeds[i] = randomSpeed(); // assign a new random speed for this drop
           } else {
             continue; // remain inactive this frame
           }
@@ -135,11 +142,13 @@ const LetterRainBackground: React.FC = () => {
         }
         ctxLocal.globalAlpha = letterOpacity;
 
-        // advance and deactivate when off-screen
-        const nextUnits = yUnits + (stepY / scaledFont);
+        // advance and deactivate when off-screen (apply per-drop speed multiplier)
+        const vel = speeds[i] || 1;
+        const nextUnits = yUnits + ((stepY * vel) / scaledFont);
         if (nextUnits * scaledFont > height) {
           drops[i] = -1; // deactivate to reduce overall frequency
           cooldowns[i] = COOLDOWN_FRAMES; // wait before allowing a new drop on this column
+          // speed will be re-assigned on next activation
         } else {
           drops[i] = nextUnits;
           anyActive = true;
