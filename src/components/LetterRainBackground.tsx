@@ -49,6 +49,9 @@ const LetterRainBackground: React.FC = () => {
     const HEAD_COLOR = '#bfc6ff'; // toned head color
     const MAX_TRAIL_UNITS = 18; // limit how long a trail persists behind the head
     const COOLDOWN_FRAMES = 48; // frames a column waits before it can spawn again (~2s at 24fps)
+    // Per-drop speed range (for 3D effect correlation with brightness)
+    const MIN_SPEED = 0.6;
+    const MAX_SPEED = 1.5;
 
     let columns = 0;
     let drops: number[] = [];
@@ -57,7 +60,24 @@ const LetterRainBackground: React.FC = () => {
 
     // Generate a subtle speed multiplier for each new drop
     // Range ~0.6x to ~1.5x of the base speed for natural variety
-    const randomSpeed = () => 0.6 + Math.random() * 0.9;
+    const randomSpeed = () => MIN_SPEED + Math.random() * (MAX_SPEED - MIN_SPEED);
+
+    // Helpers to correlate brightness with speed for a subtle 3D effect
+    const clamp01 = (n: number) => Math.max(0, Math.min(1, n));
+    const lightenHex = (hex: string, t: number) => {
+      // Mix hex color with white by factor t (0=no change, 1=white)
+      const m = /^#?([\da-f]{2})([\da-f]{2})([\da-f]{2})$/i.exec(hex);
+      if (!m) return hex;
+      const r = parseInt(m[1], 16);
+      const g = parseInt(m[2], 16);
+      const b = parseInt(m[3], 16);
+      const mix = (c: number) => Math.round(c + (255 - c) * clamp01(t));
+      const rr = mix(r);
+      const gg = mix(g);
+      const bb = mix(b);
+      const toHex = (x: number) => x.toString(16).padStart(2, '0');
+      return `#${toHex(rr)}${toHex(gg)}${toHex(bb)}`;
+    };
 
     function resize() {
       const vw = window.innerWidth;
@@ -124,6 +144,11 @@ const LetterRainBackground: React.FC = () => {
 
         // Explicit short trail rendering with per-frame clear, avoids residual build-up
         const baseColor = COLORS[i % COLORS.length];
+        const velRender = speeds[i] || 1;
+        const norm = clamp01((velRender - MIN_SPEED) / (MAX_SPEED - MIN_SPEED));
+        // Faster => brighter (mix more towards white); Slower => dimmer (closer to base indigo)
+        const mixAmt = 0.15 + 0.35 * norm; // keep within tasteful, executive range
+        const drawColor = lightenHex(baseColor, mixAmt);
         const x = i * scaledFont;
         const yUnits = drops[i];
         const y = yUnits * scaledFont;
@@ -136,14 +161,14 @@ const LetterRainBackground: React.FC = () => {
           const isHead = t === 0;
           const alpha = isHead ? 0.7 : Math.max(0, letterOpacity * (1 - t / (MAX_TRAIL_UNITS + 1)));
           ctxLocal.globalAlpha = alpha;
-          ctxLocal.fillStyle = isHead && (i % 5 === 0) ? HEAD_COLOR : baseColor;
+          ctxLocal.fillStyle = isHead && (i % 5 === 0) ? HEAD_COLOR : drawColor;
           const char = CHARS.charAt((Math.random() * CHARS.length) | 0);
           ctxLocal.fillText(char, xi, Math.round(ty));
         }
         ctxLocal.globalAlpha = letterOpacity;
 
         // advance and deactivate when off-screen (apply per-drop speed multiplier)
-        const vel = speeds[i] || 1;
+        const vel = velRender;
         const nextUnits = yUnits + ((stepY * vel) / scaledFont);
         if (nextUnits * scaledFont > height) {
           drops[i] = -1; // deactivate to reduce overall frequency
