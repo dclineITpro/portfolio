@@ -13,7 +13,10 @@ const EnhancedHero: React.FC = () => {
   };
 
   return (
-    <section id="home" className="relative min-h-screen flex items-start justify-center pt-24 md:pt-24">
+    <section
+      id="home"
+      className="relative min-h-[calc(100vh-4rem)] flex items-center justify-center pt-8 md:pt-8"
+    >
 
 
       {/* Main Content */}
