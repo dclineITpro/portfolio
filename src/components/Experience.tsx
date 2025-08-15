@@ -4,7 +4,7 @@ import { Calendar, MapPin, TrendingUp, Shield, Users, Globe } from 'lucide-react
 const Experience: React.FC = () => {
   const experiences = [
     {
-      title: "IT Director",
+      title: "IT Director - Cybersecurity/Infrastructure/Support/AI",
       company: "Flexsteel Industries, Inc.",
       location: "Dubuque, IA",
       period: "September 2015 – Present",

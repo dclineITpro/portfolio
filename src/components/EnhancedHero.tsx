@@ -119,7 +119,7 @@ const EnhancedHero: React.FC = () => {
                         <div class="section-title">PROFESSIONAL EXPERIENCE</div>
                         
                         <div class="experience-item">
-                          <div class="experience-title">IT Director</div>
+                          <div class="experience-title">IT Director - Cybersecurity/Infrastructure/Support/AI</div>
                           <div class="experience-company">Flexsteel Industries, Inc.</div>
                           <div class="experience-location">Dubuque, IA</div>
                           <div class="experience-duration">September 2015 – Present</div>
