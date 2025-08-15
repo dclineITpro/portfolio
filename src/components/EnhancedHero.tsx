@@ -1,9 +1,6 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
 import Highlights from './Highlights';
- 
-import PDFResume from './PDFResume';
 import { ChevronDown, Mail, Linkedin, Cpu, Network, Shield, Zap, Download, FileText } from 'lucide-react';
 
 const EnhancedHero: React.FC = () => {
@@ -17,20 +14,12 @@ const EnhancedHero: React.FC = () => {
 
   return (
     <section id="home" className="relative min-h-screen flex items-start justify-center pt-24 md:pt-24">
-      
+
 
       {/* Main Content */}
       <div className="relative z-10 container-padding text-center">
         <div className="max-w-4xl mx-auto">
-          {/* Photo */}
-          <motion.img
-            src="/portfolio/dj.jpg"
-            alt="DJ Cline"
-            className="w-32 h-32 object-cover rounded-full mx-auto mb-8 border-4 border-primary-600/40 shadow-lg z-40 relative"
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
-          />
+
 
           {/* Animated Title */}
           <div className="mb-8">
