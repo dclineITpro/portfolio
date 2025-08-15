@@ -345,7 +345,7 @@ const Contact: React.FC = () => {
                             </div>
 
                             <div class="experience-item">
-                              <div class="experience-title">Enterprise Architect & Client Support Team Leader</div>
+                              <div class="experience-title">Enterprise Infrastructure Architect & Client Support Team Leader</div>
                               <div class="experience-company">Roquette America, Inc.</div>
                               <div class="experience-location">Keokuk, IA</div>
                               <div class="experience-duration">May 2012 – September 2015</div>

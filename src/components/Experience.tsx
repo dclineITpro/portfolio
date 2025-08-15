@@ -19,7 +19,7 @@ const Experience: React.FC = () => {
       icon: Globe
     },
     {
-      title: "Enterprise Architect & Client Support Team Leader",
+      title: "Enterprise Infrastructure Architect & Client Support Team Leader",
       company: "Roquette America, Inc.",
       location: "Keokuk, IA",
       period: "May 2012 – September 2015",
