@@ -402,7 +402,7 @@ const EnhancedHero: React.FC = () => {
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+      <div className="absolute bottom-2 md:bottom-3 lg:bottom-4 left-1/2 transform -translate-x-1/2 animate-bounce">
         <button
           onClick={() => scrollToSection('about')}
           className="text-slate-400 hover:text-primary-400 transition-colors"
