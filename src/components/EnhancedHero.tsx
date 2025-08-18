@@ -15,7 +15,7 @@ const EnhancedHero: React.FC = () => {
   return (
     <section
       id="home"
-      className="relative min-h-[calc(100vh-4rem)] flex items-start justify-center pt-0 md:pt-0"
+      className="relative min-h-[calc(100vh-4rem)] flex items-center justify-center pt-0 md:pt-0"
     >
 
 
@@ -23,7 +23,7 @@ const EnhancedHero: React.FC = () => {
       <div className="relative z-10 container-padding text-center">
         <div className="max-w-4xl mx-auto">
           {/* Profile Image */}
-          <div className="flex justify-center mt-28 md:mt-32 mb-28 md:mb-32">
+          <div className="flex justify-center mt-12 md:mt-16 mb-12 md:mb-16">
             <img
               src={(// TypeScript: allow any-cast to access Vite BASE_URL reliably across tools
                 ((import.meta as any).env?.BASE_URL ?? '/') + 'profile.png'
