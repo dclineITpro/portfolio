@@ -22,7 +22,16 @@ const EnhancedHero: React.FC = () => {
       {/* Main Content */}
       <div className="relative z-10 container-padding text-center">
         <div className="max-w-4xl mx-auto">
-
+          {/* Profile Image */}
+          <div className="flex justify-center mb-6">
+            <img
+              src="/dj.jpg"
+              alt="DJ Cline"
+              className="w-28 h-28 md:w-36 md:h-36 rounded-full object-cover shadow-lg ring-4 ring-primary-500/20"
+              loading="eager"
+              decoding="async"
+            />
+          </div>
 
           {/* Animated Title */}
           <div className="mb-8">
