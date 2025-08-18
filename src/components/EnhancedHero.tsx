@@ -36,7 +36,7 @@ const EnhancedHero: React.FC = () => {
           </div>
 
           {/* Animated Title */}
-          <div className="mb-8">
+          <div className="mb-4 md:mb-6">
             <h1 className="text-5xl md:text-7xl font-bold mb-4">
               <span className="text-gradient">DJ Cline</span>
             </h1>
@@ -67,12 +67,12 @@ const EnhancedHero: React.FC = () => {
           </div>
 
           {/* Highlights */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 max-w-4xl mx-auto">
             <Highlights />
           </div>
 
           {/* Animated CTA Buttons */}
-          <div className="mt-12 mb-8 flex flex-col sm:flex-row items-center justify-center gap-4 flex-wrap">
+          <div className="mt-6 md:mt-8 mb-6 flex flex-col sm:flex-row items-center justify-center gap-4 flex-wrap">
             <button
               onClick={() => scrollToSection('contact')}
               className="inline-flex items-center px-8 py-4 bg-primary-600 text-white font-semibold rounded-lg hover:bg-primary-700 transition-colors duration-300"
