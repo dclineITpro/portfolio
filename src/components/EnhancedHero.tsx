@@ -25,7 +25,9 @@ const EnhancedHero: React.FC = () => {
           {/* Profile Image */}
           <div className="flex justify-center mb-6">
             <img
-              src="/profile.png"
+              src={(// TypeScript: allow any-cast to access Vite BASE_URL reliably across tools
+                ((import.meta as any).env?.BASE_URL ?? '/') + 'profile.png'
+              )}
               alt="DJ Cline"
               className="w-28 h-28 md:w-36 md:h-36 rounded-full object-cover shadow-lg ring-4 ring-primary-500/20"
               loading="eager"
