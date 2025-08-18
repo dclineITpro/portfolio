@@ -22,6 +22,7 @@ The experimental AI Lab section and related provider integrations have been remo
 - Live site: https://dclineitpro.github.io/portfolio/
 - Tech stack: React + Vite + TypeScript + Tailwind CSS
 - Recent change: AI Lab removed (UI, code, and docs) to simplify the site
+- Recent change: Profile image switched to transparent `public/profile.png`; hero and favicon updated
 - Background: Executive gradient + indigo letter rain
   - Honors reduced motion (animation disabled when enabled in OS/browser)
   - Disabled on mobile (<768px) for performance and comfort

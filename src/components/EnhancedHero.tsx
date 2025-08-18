@@ -25,7 +25,7 @@ const EnhancedHero: React.FC = () => {
           {/* Profile Image */}
           <div className="flex justify-center mb-6">
             <img
-              src={import.meta.env.BASE_URL + 'dj.jpg'}
+              src="/profile.png"
               alt="DJ Cline"
               className="w-28 h-28 md:w-36 md:h-36 rounded-full object-cover shadow-lg ring-4 ring-primary-500/20"
               loading="eager"
