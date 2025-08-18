@@ -29,7 +29,7 @@ const EnhancedHero: React.FC = () => {
                 ((import.meta as any).env?.BASE_URL ?? '/') + 'profile.png'
               )}
               alt="DJ Cline"
-              className="w-28 h-28 md:w-36 md:h-36 rounded-xl object-contain bg-transparent"
+              className="w-28 h-28 md:w-36 md:h-36 rounded-full object-cover bg-transparent"
               loading="eager"
               decoding="async"
             />
