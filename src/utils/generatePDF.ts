@@ -125,20 +125,19 @@ export const generateResumePDF = () => {
         </div>
 
         <div class="section">
-          <div class="section-title">AI &amp; Data Engineering</div>
+          <div class="section-title">AI &amp; Cybersecurity</div>
           <p><strong>Local-first emphasis:</strong> Ollama + LM Studio (privacy-first, on-prem capable). <strong>Cloud-neutral:</strong> MLflow primary; SageMaker/Vertex AI supported.</p>
           <ul>
             <li>Build and deploy LLM/GenAI solutions for summarization, Q&amp;A, and content generation</li>
             <li>Design NLP pipelines using Transformers, spaCy, and LangChain</li>
             <li>Identify high-value use cases, prototype quickly, and scale to production</li>
-            <li>Develop automation for underwriting, claims, and customer support processes</li>
+            <li>Develop cybersecurity automation (SIEM/SOAR playbooks, incident response, vulnerability management)</li>
             <li>Create APIs/services to integrate models with real applications</li>
             <li>Automate train/test/monitor with MLflow (registry, A/B, drift monitoring)</li>
             <li>Ensure security, reliability, explainability, and compliance (Responsible AI)</li>
-            <li>Build data pipelines with Spark and Airflow; support data lakes/warehouses</li>
             <li>Containerize and operate with Docker, Kubernetes, and CI/CD</li>
           </ul>
-          <p><strong>Tools &amp; Platforms:</strong> Ollama, LM Studio, Chroma (preferred), FAISS, Transformers, spaCy, LangChain, MLflow, Spark, Airflow, Docker, Kubernetes, CI/CD.</p>
+          <p><strong>Tools &amp; Platforms:</strong> Ollama, LM Studio, Chroma (preferred), FAISS, Transformers, spaCy, LangChain, MLflow, SIEM/SOAR, Docker, Kubernetes, CI/CD.</p>
         </div>
 
         <div class="section">

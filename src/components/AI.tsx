@@ -1,5 +1,5 @@
 import React from 'react';
-import { Brain, Cpu, Rocket, ShieldCheck, Server, Database, Settings, Link } from 'lucide-react';
+import { Brain, Cpu, Rocket, ShieldCheck, Server, Settings, Link, Palette } from 'lucide-react';
 
 const AI: React.FC = () => {
   const cards = [
@@ -31,12 +31,12 @@ const AI: React.FC = () => {
       ],
     },
     {
-      title: 'Process Automation',
+      title: 'Cybersecurity Automation',
       icon: Settings,
       points: [
-        'Underwriting, claims, customer support',
-        'Agent assist + self‑service experiences',
-        'Human‑in‑the‑loop for high‑impact workflows',
+        'SIEM/SOAR playbooks and enrichments',
+        'Incident response workflows and auto‑remediation',
+        'Vulnerability scanning and policy enforcement',
       ],
     },
     {
@@ -67,12 +67,12 @@ const AI: React.FC = () => {
       ],
     },
     {
-      title: 'Data Engineering',
-      icon: Database,
+      title: 'Vibe Coding',
+      icon: Palette,
       points: [
-        'Spark + Airflow orchestration',
-        'Pipelines, lakes/warehouses',
-        'Vector DBs (Chroma preferred, FAISS supported)',
+        'Flow‑state prototyping and rapid UI spikes',
+        'Micro‑interactions and tasteful animations',
+        'Ambient visuals (Particles, Letter Rain)',
       ],
     },
     {
@@ -88,7 +88,7 @@ const AI: React.FC = () => {
 
   const tools = [
     'Ollama', 'LM Studio', 'Chroma (preferred)', 'FAISS', 'Transformers', 'spaCy',
-    'LangChain', 'MLflow', 'Spark', 'Airflow', 'Docker', 'Kubernetes', 'CI/CD',
+    'LangChain', 'MLflow', 'SIEM/SOAR', 'Docker', 'Kubernetes', 'CI/CD',
   ];
 
   return (
@@ -100,7 +100,7 @@ const AI: React.FC = () => {
           </div>
           <h2 className="text-4xl font-bold text-white mb-3 text-gradient">AI</h2>
           <p className="text-xl text-slate-300 max-w-3xl mx-auto">
-            AI & Data Engineering focused on LLMs, Generative AI, and NLP. Cloud‑neutral solutions with a strong
+            AI focused on LLMs, Generative AI, and NLP, with cybersecurity automation. Cloud‑neutral solutions with a strong
             local‑first stance for privacy and control, leveraging Ollama and LM Studio where appropriate.
           </p>
         </div>
