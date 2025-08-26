@@ -4,6 +4,7 @@ import Header from './components/Header';
 import About from './components/About';
 import Experience from './components/Experience';
 import Skills from './components/Skills';
+import AI from './components/AI';
 import Achievements from './components/Achievements';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
@@ -30,6 +31,9 @@ function App() {
         </ScrollAnimationWrapper>
         <ScrollAnimationWrapper>
           <Skills />
+        </ScrollAnimationWrapper>
+        <ScrollAnimationWrapper>
+          <AI />
         </ScrollAnimationWrapper>
         <ScrollAnimationWrapper>
           <CertificationsFrameworks />
