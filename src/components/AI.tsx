@@ -95,8 +95,14 @@ const AI: React.FC = () => {
     <section id="ai" className="section-padding bg-slate-900/50">
       <div className="container-padding">
         <div className="text-center mb-12">
-          <div className="inline-flex items-center px-3 py-1 rounded-full bg-primary-100 border border-primary-300 text-primary-700 text-xs font-semibold mb-3">
-            Local‑first AI • Ollama + LM Studio
+          <div className="flex items-center justify-center gap-2 mb-3">
+            <div className="inline-flex items-center px-3 py-1 rounded-full bg-primary-100 border border-primary-300 text-primary-700 text-xs font-semibold">
+              Local‑first AI • Ollama + LM Studio
+            </div>
+            <div className="inline-flex items-center px-3 py-1 rounded-full bg-slate-100 border border-slate-300 text-slate-700 text-xs font-semibold">
+              <Palette className="w-3 h-3 mr-1" />
+              Vibe Coding
+            </div>
           </div>
           <h2 className="text-4xl font-bold text-white mb-3 text-gradient">AI</h2>
           <p className="text-xl text-slate-300 max-w-3xl mx-auto">

@@ -1,7 +1,7 @@
 import React from 'react';
 import { TypeAnimation } from 'react-type-animation';
 import Highlights from './Highlights';
-import { ChevronDown, Mail, Linkedin, Cpu, Network, Shield, Zap, Download, FileText } from 'lucide-react';
+import { ChevronDown, Mail, Linkedin, Cpu, Network, Shield, Zap, Download, FileText, Palette } from 'lucide-react';
 
 const EnhancedHero: React.FC = () => {
 
@@ -398,6 +398,10 @@ const EnhancedHero: React.FC = () => {
             <div className="flex items-center space-x-2">
               <Cpu className="w-5 h-5 text-primary-400" />
               <span>Digital Transformation</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Palette className="w-5 h-5 text-primary-400" />
+              <span>Vibe Coding</span>
             </div>
           </div>
         </div>
